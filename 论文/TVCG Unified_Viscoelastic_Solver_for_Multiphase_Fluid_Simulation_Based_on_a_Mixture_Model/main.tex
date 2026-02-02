@@ -1,0 +1,693 @@
+\documentclass[lettersize,journal]{IEEEtran}
+\usepackage{amsmath,amsfonts}
+\usepackage{algorithmic}
+\usepackage{algorithm}
+\usepackage{array}
+\usepackage[caption=false,font=normalsize,labelfont=sf,textfont=sf]{subfig}
+\usepackage{textcomp}
+\usepackage{stfloats}
+\usepackage{url}
+\usepackage{verbatim}
+\usepackage{graphicx}
+\usepackage{soul}
+\usepackage{svg}
+\usepackage{cite}
+\usepackage{makecell}
+\usepackage{threeparttable}
+%\usepackage{ulem}
+\usepackage{color, xcolor}
+\hyphenation{op-tical net-works semi-conduc-tor IEEE-Xplore}
+% updated with editorial comments 8/9/2021
+
+\newcommand{\new}[1]{{\color{blue}{#1}}}
+
+\begin{document}
+
+\title{\new{A Unified Viscoelastic Solver for Multiphase Fluid Simulation Based on a Mixture Model}}
+
+\author{IEEE Publication Technology,~\IEEEmembership{Staff,~IEEE,}
+\author{
+\IEEEauthorblockN{Long Shen\textsuperscript{1}},
+\and
+\IEEEauthorblockN{Yalan Zhang\textsuperscript{1,*}},
+\and
+\IEEEauthorblockN{Steffen Frey\textsuperscript{2}},
+\and
+\IEEEauthorblockN{Alex Telea\textsuperscript{3}},
+\and
+\IEEEauthorblockN{Ji\v{r}\'i Kosinka\textsuperscript{2}},
+\and
+\IEEEauthorblockN{Junjun Pan\textsuperscript{4}},
+\and
+\IEEEauthorblockN{Xiaokun Wang\textsuperscript{1}},
+\and
+\IEEEauthorblockN{Xiaojuan Ban\textsuperscript{1}}
+
+\thanks{*: Corresponding author}
+\thanks{1: University of Science and Technology Beijing, Beijing, China}
+\thanks{2: University of Groningen Groningen, the Netherlands}
+\thanks{3: Department of Information Computing Sciences Utrecht University Utrecht, the Netherlands}
+\thanks{4: State Key Laboratory of Virtual Reality Technology and Systems, Beihang University, Beijing, China}
+}
+
+        % <-this % stops a space
+\thanks{This paper was produced by the IEEE Publication Technology Group. They are in Piscataway, NJ.}% <-this % stops a space
+\thanks{Manuscript received April 19, 2021; revised August 16, 2021.}}
+
+% The paper headers
+\markboth{Journal of \LaTeX\ Class Files,~Vol.~14, No.~8, August~2021}%
+{Shell \MakeLowercase{\textit{et al.}}: A Sample Article Using IEEEtran.cls for IEEE Journals}
+
+% \IEEEpubid{0000--0000/00\$00.00~\copyright~2021 IEEE}
+% Remember, if you use this you must call \IEEEpubidadjcol in the second
+% column for its text to clear the IEEEpubid mark.
+
+\maketitle
+
+\begin{abstract}
+\new{
+Fluid simulation is a central topic in computer graphics, encompassing a wide range of methodologies for modeling Newtonian, non-Newtonian, and viscoelastic behaviors across both single-phase and multiphase settings. Existing single-phase frameworks have achieved high visual fidelity, yet multiphase simulations remain limited in accurately capturing complex phase interactions, particularly under high-viscosity-ratio or viscoelastic conditions. }
+
+\new{
+To address these challenges, we develop a unified multiphase viscoelastic formulation capable of handling diverse fluid types—including Newtonian, shear-dependent non-Newtonian, and viscoelastic flows—within a single consistent framework. The formulation extends mixture-model approaches through a multi-mode conformation tensor representation, which enhances numerical stability via phase-level stress corrections and efficiently captures a broad spectrum of rheological behaviors.}
+
+\new{
+Compared with existing techniques, our framework achieves improved momentum–mass consistency and numerical stability, maintaining physically plausible results across wide viscosity ranges, advancing the state of the art in multiphase viscoelastic fluid simulation.}
+\end{abstract}
+
+
+\begin{IEEEkeywords}
+physical simulation, multi-mode conformation tensor, mixture model, viscoelastic fluids
+\end{IEEEkeywords}
+
+\section{Introduction}
+Fluid simulation is a fundamental research topic in computer graphics~\cite{Wang2024}, encompassing a wide spectrum of methodologies from physics-based solvers for fluid dynamics to data-driven and deep learning approaches. From a macroscopic perspective, fluids can be broadly categorized as Newtonian or shear-dependent non-Newtonian.
+
+\emph{Newtonian fluids} obey Newton’s law of viscosity, exhibiting a linear relationship between shear stress and shear rate, with dynamic viscosity as the proportionality constant. Modeling Newtonian fluids has enabled realistic fluid animations, with prior research focusing on accurate pressure solvers, robust viscosity formulations, and surface tension modeling.
+
+\emph{Non-Newtonian fluids}, in contrast, exhibit nonlinear rheological behavior, where viscosity varies under different shear stresses or over time. Such fluids are ubiquitous in industrial, natural, and everyday contexts. Existing simulation methods typically employ constitutive viscosity models to represent effects such as shear-thinning and viscoelasticity.
+
+Simulation frameworks for both Newtonian and non-Newtonian fluids can be classified into single-phase and multiphase systems. Most graphics techniques focus on \emph{single-phase} flows, employing Poisson-based pressure solvers~\cite{takahashi2023multilevel}, Laplacian-based viscosity solvers~\cite{weiler2018physically}, variational unsteady Stokes formulations~\cite{larionov2017variational}, and surface tension models~\cite{xing2022position}. These approaches achieve visually convincing and numerically stable results for conventional low-viscosity scenarios.
+
+In contrast, \emph{multiphase} frameworks -- our focus in this work -- aim to simulate interactions between miscible or immiscible fluids. Methods for immiscible flows include SPH~\cite{gingold1977smoothed}, PBF~\cite{macklin2013position}, MPM~\cite{zhang2008material}, and grid-based formulations. For miscible fluids, mixture models, Cahn–Hilliard models, and non-Fourier diffusion models have been used to capture interfacial evolution, bubble formation, phase transitions, and mixing behaviors.
+
+Despite substantial progress, challenges remain for multiphase simulations involving high-viscosity or viscoelastic fluids. Most existing methods are limited to low-viscosity Newtonian flows~\cite{li2023fluid,jiang2021dynamic,yang2015fast}. The recent mixture-model-based unified two-phase framework~\cite{zhang2024multiphase} extended applicability to shear-dependent fluids but faced difficulties in numerical stability and scalability to multiple phases.
+
+\new{We address these challenges by a unified multiphase viscoelastic formulation that extends existing mixture-model frameworks through a multi-mode conformation tensor representation. The conformation tensor governs the viscoelastic constitutive behavior, enabling the simulation of highly viscous and shear-dependent fluids with improved stability and efficiency. Within this unified formulation, the mixture-model component is responsible for handling \emph{miscible} multiphase flows where the phases share a continuous velocity field, while the SPH formulation is used for \emph{immiscible} flows with distinct interfaces. These two schemes are orthogonal and are  seamlessly integrated, allowing our framework to handle both miscible and immiscible multiphase systems. Hence, our method can simulate single-phase and multiphase Newtonian as well as non-Newtonian fluids, achieving enhanced numerical robustness and computational scalability, particularly in cases with large viscosity contrasts.}
+
+This paper is organized as follows. Section~\ref{sec:RW} reviews related work in both viscoelastic modeling and multiphase simulation. Sections~\ref{sec:review_sph} and~\ref{sec:review_mm} introduce the background of SPH and the mixture-model formulations on which our framework is built. Section~\ref{sec:method} presents the proposed method in detail. Section~\ref{sec:experiments} compares our results with recent state-of-the-art approaches, and Section~\ref{sec:conclusion} concludes the paper.
+
+For convenience, we refer to our method as MCT (Multi-mode Conformation Tensor method) throughout the remainder of the paper.
+
+%=============================================================================
+\section{Related Work}
+\label{sec:RW}
+
+Viscosity computation forms a fundamental component of fluid simulation, and a variety of methods have been proposed to capture different aspects of viscous behavior. This section provides a structured review of representative viscosity modeling, multiphase simulation, and conformation-tensor-based viscoelastic techniques.
+
+\subsection{Fundamental Viscosity Modeling Techniques}
+\label{sec:vis_basic}
+
+Early viscosity solvers were primarily developed within single-phase frameworks, which can be broadly classified into three paradigms: artificial viscosity models, Laplacian-operator-based schemes, and strain-rate-tensor formulations.
+
+Within the Smoothed Particle Hydrodynamics (SPH) framework, Schechter et al.~\cite{koschier2022survey} introduced the XSPH method, which adjusts velocity fields by regulating velocity differences between particles. Although effective for damping, this approach depends on heuristic parameters that limit physical accuracy in complex flows. Alternative schemes based on Laplacian discretization~\cite{gingold1977smoothed} are simple to implement but suffer from boundary particle deficiencies and poor density sampling. Takahashi et al.~\cite{takahashi2015implicit} improved stability by iteratively solving first-order derivatives instead of second-order Laplacians, at the cost of increased computational effort. Brookshaw~\cite{brookshaw1985method} achieved momentum conservation by combining SPH discretization with finite-difference operators, which has since become a common strategy in later studies~\cite{liu2021adapted,weiler2018physically}.
+
+\subsection{Advanced Non-Newtonian Fluid Models}
+\label{sec:nonnewtonian_models}
+
+To represent the complex rheological behavior of non-Newtonian fluids, numerous models extend traditional Newtonian viscosity solvers to capture effects such as shear-thinning, shear-thickening, and viscoelasticity.
+
+For \emph{shear-dependent} fluids, Andrade et al.~\cite{andrade2014sph} combined symmetric Laplacian discretization with the Cross model~\cite{cross65} to reproduce shear-thinning behavior. Ozgen et al.~\cite{ozgen2019sph} proposed a fractional-calculus-based SPH formulation incorporating a history-dependent stiffness term to simulate shear-thickening responses. Liu et al.~\cite{liu2021adapted} further demonstrated that the Cross model can represent both shear-thinning and shear-thickening regimes under a unified formulation.
+
+In the context of \emph{viscoelastic} fluids, Panuelos et al.~\cite{panuelos2023polystokes} used a functional approach to solve the unsteady Navier–Stokes equations while preserving coupling between viscous and pressure terms. Fei et al.~\cite{fei2019multi} developed a multiscale framework that integrates wire-like structural dynamics with shear-dependent fluid models, using the Herschel–Bulkley model for elastoplastic characterization. Zhu et al.~\cite{zhu2015codimensional} achieved realistic thin-film effects by combining the Carreau model~\cite{carreau1972rheological} with a co-dimensional formulation, allowing smooth transitions between shear-thinning and shear-thickening behaviors.
+
+These advances significantly improved the realism of non-Newtonian simulations. Yet, achieving high fidelity at practical computational costs remains challenging for large-scale and/or highly viscous flows.
+
+\subsection{Advanced Single-Phase Viscosity Schemes}
+\label{sec:improved_scheme}
+
+Recent work has developed implicit or hybrid schemes to simulate highly viscous single-phase fluids more efficiently. Takahashi et al.~\cite{takahashi2015implicit} used backward Euler integration based on strain-rate tensors, enabling larger time steps but introducing artifacts near low-density boundaries. Bender et al.~\cite{bender2016divergence} proposed a velocity constraint derived from strain-rate tensors to regularize flow fields. Peer et al.~\cite{peer2015implicit} decomposed velocity gradients and introduced artificial regulators to control shear rates through SPH discretization. Although such methods improve stability, they often struggle with velocity reconstruction under low-viscosity or under-sampled conditions.
+
+Zhu et al.~\cite{zhu2015codimensional} simulated filamentary and membranous viscous materials using a co-dimensional representation. Barreiro et al.~\cite{barreiro2017conformation} coupled polymer conformation dynamics with Position-Based Dynamics (PBD) for real-time viscoelastic simulation. Goldade et al.~\cite{goldade2019adaptive} introduced an octree-based adaptive finite-difference solver to accelerate computation. Su et al.~\cite{su2021unified} applied the Material Point Method (MPM) to design a second-order accurate viscosity solver, while Li et al.~\cite{li2023unified} proposed a unified particle framework accommodating heterogeneous material behaviors.
+
+\subsection{Multiphase Fluid Simulation: Non-Mixing Regimes}
+\label{sec:non_mix_multiphase}
+%
+For immiscible multiphase fluids, specialized methods have been proposed to handle interface tracking and surface tension. Aldu{\'a}n et al.~\cite{alduan2017dyverso} presented an SPH-based framework for production-grade visual effects, using density interpolation at phase interfaces~\cite{solenthaler2008density} with controllable surface tension for artistic flexibility. Yan et al.~\cite{yan2018mpm} extended MPM to simulate solid–fluid interactions with anti-penetration constraints along surface normals. Da et al.~\cite{da2014multimaterial} addressed topological challenges in 2D surface tracking. Misztal et al.~\cite{misztal2013multiphase} used unstructured tetrahedral grids to maintain mesh quality across evolving phase boundaries. Li et al.~\cite{li2015multiphase} combined mesh-based tracking with distance field reconstruction, supporting seamless interface transitions between multiple phases~\cite{yang2018semi}.
+
+\new{
+More recently, Yan and Ren introduced a peridynamic mixture-model formulation that stably handles immiscible and miscible multi-fluid regimes under extremely large density ratios~\cite{yan2023high}. By computing all Navier--Stokes terms in integral form and incorporating a mass-updating strategy, this approach improves robustness in high-density-ratio unmixing scenarios while maintaining phase mass consistency.
+}
+
+\subsection{Multiphase Fluid Simulation: Mixing Regimes}
+\label{sec:mix_multiphase}
+%
+For miscible or dispersed systems, mixture models have become a widely adopted paradigm. Ren et al.~\cite{ren2014multiple} formulated a model for mixing and demixing flows using SPH-based continuity and momentum equations, later extended by Yan et al.~\cite{yan2016multiphase} to incorporate solid phases. Ren et al.~\cite{ren2021unified} introduced a virtual-phase representation for porous media. Jiang et al.~\cite{jiang2020divergence} enforced incompressibility via volume-weighted mixture velocities. Jiang and Lan~\cite{jiang2021dynamic} proposed a dynamic mixture model that relaxes local equilibrium assumptions to improve phase coupling. Additional work has addressed thermodynamic effects, such as phase change and heat transfer, using MPM~\cite{stomakhin2014augmented} and hybrid SPH-grid formulations~\cite{hochstetter2017evaporation}.
+
+\new{
+Complementary to mixture-model approaches, Li et al.~\cite{li2024kinetic} presented a kinetic multifluid solver based on high-order moment-encoded LBM which unifis simulation of miscible, immiscible, and partially miscible flows with large density ratios and turbulent behavior. This method shows that kinetic formulations can achieve strong stability and visual complexity in multiphase mixing, particularly when interface diffuse profiles and velocity distributions are consistently coupled.
+}
+
+\subsection{Multiphase Viscosity Computation}
+\label{sec:rw_multiphase}
+
+Multiphase viscosity modeling remains a major challenge due to complex inter-phase coupling and high viscosity ratios. Most existing methods adapt single-phase viscosity solvers or employ empirical mixture rules. Ren et al.~\cite{ren2014multiple} computed mixture viscosity by explicit viscous terms. Tao et al.~\cite{yang2015fast} combined the Cahn–Hilliard equation with the Refutas algorithm to improve viscosity estimation. Xu et al.~\cite{xu2023implicitly} extended implicit single-phase models to multiphase systems which can be unstable at high viscosity contrasts. Li et al.~\cite{li2022efficient} used the Lattice Boltzmann Method (LBM) with phase-field coupling for two-phase flows. Jiang and Lan~\cite{jiang2021dynamic} assumed uniform viscosity across all phases in their dynamic mixture model. Recently, Zhang et al.~\cite{zhang2024multiphase} employed a polymer conformation tensor formulation to unify Newtonian and non-Newtonian viscosity modeling, yet encountered artifacts in low-viscosity regimes and limited scalability to multiple phases.
+
+\new{\subsection{The Conformation Tensor for Viscoelastic Flows}}%: CFD Foundations and CG Adaptations}}
+\label{sec:rw_conformation}
+
+\noindent\textbf{CFD foundations:} The conformation tensor $\mathbf{A}$ is a macroscopic measure of polymer stretch and orientation and underpins a broad class of viscoelastic constitutive models such as Oldroyd-B, FENE-P, and (s)PTT/Leonov~\cite{oldroyd1950formulation,renardy2021mathematician,john2024comparison}. These formulations commonly express the polymer stress as $\boldsymbol{\tau}_p = G\, f(\mathbf{A})$ coupled to incompressible Navier--Stokes via an upper-convected derivative. A key numerical challenge is the high-Weissenberg-number breakdown and loss of positive-definiteness (SPD) of $\mathbf{A}$. The \emph{log-conformation} reformulation, originally proposed by Fattal and Kupferman, evolves $\Psi=\log\mathbf{A}$ instead of $\mathbf{A}$, thereby enforcing SPD and widely extending the accessible parameter regime~\cite{fattal2005time,coronado2007simple,afonso2009log,moreno2019logarithmic}. Other stabilizations (e.g., symmetric/square-root factorization) and robust finite-volume/finite-element realizations are now well-established within computational rheology~\cite{afonso2009log,coronado2007simple,moreno2019logarithmic}.
+
+\noindent\textbf{Computer graphics adaptations:}
+In graphics, viscoelastic appearance is often approximated using effective-viscosity surrogates or spring/constraint networks within SPH/PBD/MPM frameworks. Explicit conformation-tensor formulations have been explored --- notably \emph{Conformation Constraints} --- which embed velocity-based implicit constraints derived from conformation dynamics to achieve stable single-phase viscoelastic effects~\cite{barreiro2017conformation}. While such approaches are robust and efficient, most target single-phase phenomena and do not unify treatment of \emph{miscible} and \emph{immiscible} multiphase transport.
+
+\smallskip
+\noindent
+\new{
+\noindent\textbf{Summary and position of our work:} 
+Despite substantial progress across single- and multiphase viscosity modeling, existing techniques still face practical limitations in numerical stability under high Weissenberg or high-viscosity-contrast regimes, scalability to multiple interacting phases, and consistency between rheological modeling and phase transport. 
+We address these challenges by integrating \emph{conformation-tensor}-based viscoelasticity with \emph{orthogonal} multiphase transport mechanisms in a unified framework. 
+Our multi-mode conformation tensor represents the non-Newtonian rheological behavior; the mixture-model formulation and SPH handle miscible and immiscible phase interactions. 
+By coupling conservative, consistent transport of phase fractions with conformation-tensor evolution that preserves positive-definiteness and stability properties from CFD formulations~\cite{fattal2005time,coronado2007simple,afonso2009log,moreno2019logarithmic}, we increase robustness and scalability across a broad range of Newtonian and non-Newtonian multiphase scenarios.
+}
+
+\section{Background}
+We next briefly review the background relevant to our work, including the SPH method(\ref{sec:review_sph}), mixture models, and the implicit mixture model that we adopt(\ref{sec:review_mm}). \new{Table~\ref{tab:params} lists the notations we use and meanings of all involved parameters.}
+
+\begin{table}[htbp]
+\caption{Model Parameters}
+\centering
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Symbol} & \textbf{Description} & \textbf{Range}\\
+\hline
+$\alpha_k$ & volume fraction of phase $k$ & $[0,1]$\\
+\hline
+$C_f$ & diffusion coefficient & $[0,1]$\\
+\hline
+$C_d$ & momentum exchange coefficient & $[0,1]$\\
+\hline
+$\eta^0_k$ & rest viscosity of phase $k$ & $>0$\\
+\hline
+$\lambda^0_k$ & rest relaxation time of phase $k$ & $(0,1)$\\
+\hline
+$\gamma^0_k$ & rest shear-thinning factor of phase $k$ & $[0,1]$\\
+\hline
+$b^0$ & rest impact factor & $[0,1)$\\
+\hline
+$\beta$ & moderating factor of the impact factor & $(-1,1)$\\
+\hline
+$\kappa$ & surface tension coefficient & $>0$\\
+\hline
+$\mathbf{Q}$ & conformation tensor & $ - $\\
+\hline
+$\mathbf{v}_{i, k}$ & \textit{k}-th phase velocity of particel \textit{i} & $ - $\\
+\hline
+$\rho$ & fluid density & $ - $\\
+\hline
+$\sigma$ & fluid stress tensor & $ - $\\
+\hline
+$\mathbf{M}$ & momentum source & $ - $\\
+\hline
+\end{tabular}
+\label{tab:params}
+\end{table}
+
+\subsection{Smoothed Particle Hydrodynamics (SPH)}
+\label{sec:review_sph}
+%
+Many fluid solvers have been developed based on this method. SPH is a meshless method that uses a set of kernel functions to compute the contribution of neighboring particles to the physical field of a target particle. SPH generally involves two key components: the kernel function and neighbor search.
+
+The kernel function measures the contribution of neighboring particles to a target particle, typically following a Gaussian distribution: particles closer to the target contribute more, while particles farther away contribute zero. %\sout{(Fig.\ref{fig:sph})}. 
+Cubic splines are also common kernels. Specifically, in our method we use
+\begin{equation}
+    W(\mathbf{r}, h) = \Lambda
+    \begin{cases}
+        6(l^3-l^2)+1, & 0 \leq l \leq 0.5, \\
+        2(1-l)^3, & 0.5 < l \leq 1, \\
+        0, & \mathrm{otherwise,}
+    \end{cases}
+\end{equation}
+where $l = \frac{\|\mathbf{r}\|}{h}$; $\mathbf{r}$ is the distance vector between two particles; $h$ is the kernel's support radius; and $\Lambda$ depends on the spatial dimension, 1D$: \Lambda=\frac{4}{3h}$, 2D$: \Lambda=\frac{40}{7\pi h^2}$, 3D$: \Lambda=\frac{8}{\pi h^3}$.
+
+At each time step, the SPH solver needs to search for neighbor particles to compute the changes of the flow field. For this task, we use a uniform grid-based neighbor search~\cite{green2010particle}.
+
+After updating neighbors, SPH computes the parameters of the physical field using the kernel function and the neighbor particles
+\begin{equation}
+    \begin{aligned} 
+        \mathbf{\Phi}_i &= \sum _{j \in N(i)} \frac{m_j}{\rho _j}\mathbf{\Phi}_j W_{ij}, \\
+        \nabla \mathbf{\Phi}_i &= \sum _{j \in N(i)} \frac{m_j}{\rho _j}\mathbf{\Phi}_j \otimes \nabla W_{ij}, \\
+        \nabla \cdot \mathbf{\Phi}_i &= \sum _{j \in N(i)} \frac{m_j}{\rho _j}\mathbf{\Phi}_j\cdot \nabla W_{ij},\\
+        \nabla ^2 \mathbf{\Phi}_i &= \sum _{j \in N(i)} \frac{m_j}{\rho _j}\mathbf{\Phi}_j \nabla ^2 W_{ij}, \\
+    \end{aligned}
+\end{equation}
+where $\mathbf{\Phi}$ is the physical field; $\mathbf{a} \otimes \mathbf{b} = \mathbf{a}\mathbf{b}^T$; $i$ is the index of the current particle; $j$ is the neighbor index, $N(i)$ are the neighbors of particle $i$; and $W_{ij} = W(\mathbf{x}_i-\mathbf{x}_j, h)$. For brevity, we next use $\sum_j$ to denote $\sum _{j \in N(i)}$.
+
+\subsection{Mixture Model}
+\label{sec:review_mm}
+
+The \emph{mixture model}\cite{Mikko96} is a widely used approach for simulating multiphase fluids. It models the concentration ratio of each phase in a multiphase particle using the volume fraction scheme (Fig.\ref{fig:volume_frac}), computes the dynamic parameters of each phase based on multiphase fluid dynamics, and reconstructs the velocity field of the mixed particle from all phases. We next detail the key terms of the mixture model.
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[trim=1 1 1 1, clip,width=\columnwidth]{pics/png/volume_frac.png}
+\end{center}
+\caption{Volume fraction scheme in the mixture model. $\alpha$ represent the phase volume fraction of a mixture particle, all volume fractions sum up to 1: $\sum _k \alpha _k = 1$.}
+\label{fig:volume_frac}
+\end{figure}
+
+A mixture particle $i$ with phases $k\in[1,\ldots,K]$ contains the volume fractions of each phase which sum up to 1
+\begin{equation}
+ \sum_k \alpha_{i,k} = 1,
+\end{equation}
+where $\alpha_{i,k}$ is the $k$-th phase volume fraction of particle $i$. We use the this subscript notation throughout the rest of this paper.
+
+The mixture model uses the drift velocity $\mathbf{v}^\mathrm{drift}_k$ to measure the shift of the phase velocity $\mathbf{v}_k$ relative to the mixture velocity $\bar{\mathbf{v}}$ for particle \textit{i}
+\begin{equation}
+ \mathbf{v}^\mathrm{drift}_{i,k} = \mathbf{v}_{i,k} - \bar{\mathbf{v}}_i,
+\end{equation}
+where
+\begin{equation}\bar{\mathbf{v}}_i = \sum_k \alpha_{i,k} \mathbf{v}_{i,k}.
+\label{eq:mix_v}
+\end{equation}
+A mixture particle rest density $\bar{\rho}$ is computed as
+\begin{equation}
+ \bar{\rho}_i = \sum_k \alpha_{i,k} \rho^0_k,
+ \label{eq:mix_rho}
+\end{equation}
+where $\rho^0_k$ is the rest density of phase $k$.
+
+The velocity of each phase is updated based on pressure, body forces, and stress terms, and ultimately reconstructed into the velocity field of the mixed particles. In the implicit mixture model~\cite{xu2023implicitly}, a parameter $C_d \in [0,1]$  controls the degree of momentum exchange between the mixture and its phases. The pressure force is computed as
+\begin{equation}
+ \frac{D\mathbf{v}^\mathrm{p}_{i,k}}{Dt} = C_d \frac{\bar{\mathbf{M}}_i^\mathrm{p}}{\bar{\rho}_i} + (1-C_d)\frac{\mathbf{M}^\mathrm{p}_{i,k}}{\alpha_{i,k}\rho^0_k},
+ \label{eq:imm_p_1}
+\end{equation}
+where $\mathrm{p}$ denotes pressure and $\bar{\mathbf{M}}_i^\mathrm{p}$ is the mixture's pressure momentum source, computed using the DFSPH method. A critical assumption in the calculation of the pressure momentum source is that pressure acts uniformly across all phases, implying $\mathbf{M}_{i,k} = \alpha_{i,k}.\bar{\mathbf{M}}^\mathrm{p}_i$. Hence, Eq.\ref{eq:imm_p_1} can be rewritten as
+\begin{equation}
+ \frac{D\mathbf{v}^\mathrm{p}_{i,k}}{Dt} =\frac{\bar{\mathbf{M}}_i^\mathrm{p}}{\bar{\rho}_i}\left(C_d+(1-C_d)\frac{\bar{\rho}_i}{\rho^0_k}\right).
+ \label{eq:imm_p_2}
+\end{equation}
+This equation indicates that, as 
+$C_d$ increases, the acceleration of each phase approaches that of the mixture, resulting in a reduction of phase drift velocity and thus a decrease in the phase separation rate.
+
+The phase transport is affected by two factors, namely drift velocity and diffusion, given respectively by
+%
+\begin{equation}
+\begin{aligned} 
+ \frac{D\alpha_{i,k}}{Dt} &= -\sum_jV_0(\alpha_{i,k} \mathbf{v}^{\mathrm{drift}}_{i,k} + \alpha_{j,k} \mathbf{v}^{\mathrm{drift}}_{j,k})\cdot\nabla W_{ij}, \\
+  \nabla^2\alpha_{i,k} &= C_f\sum_j (\alpha_{i,k}-\alpha_{j,k})\frac{\mathbf{x}_{ij}\cdot \nabla W_{ij}}{{\|\mathbf{x}_{ij}\|}^2 + 0.01h^2},
+ \label{eq:mm_phase_trans}
+ \end{aligned} 
+\end{equation}
+%
+where $C_f$ is a diffusion coefficient and $\mathbf{x}_{ij} = \mathbf{x}_i - \mathbf{x}_j$.
+
+The calculation for each phase in multiphase fluid dynamics can be  expressed as 
+\begin{equation}
+ \frac{D\mathbf{v}_{i,k}}{Dt} = \mathbf{a}^\mathrm{p}_{i,k} + \mathbf{a}^\mathrm{body}_{i,k} + \mathbf{a}^\mathrm{I}_{i,k} + \mathbf{a}^\mathrm{\nu}_{i,k}.
+ \label{eqn:phases}
+\end{equation}
+The first three terms on the right-hand side of Eqn.~\ref{eqn:phases} can be computed following  ~\cite{xu2023implicitly}. Our research further elaborates on the viscoelastic term $\mathbf{a}^\mathrm{\nu}_{i,k}$.
+
+\section{Proposed Method}
+\label{sec:method}
+We next detail our method, including the multi-mode polymer conformation tensor method, coupling with the implicit mixture model, and the associated supporting mechanisms.
+
+\subsection{Multi-mode Polymer Conformation Tensor Method}
+\label{sec:method_mpct}
+
+The Polymer Conformation Tensor Method~\cite{balci2011symmetric} is a mathematical model used to describe the deformation and dynamic behavior of polymer molecules. It is widely used in computational fluid dynamics (CFD) and soft matter physics to simulate the flow of polymer solutions, particularly their non-Newtonian behavior in complex flow fields. The evolution equation for a typical single conformation tensor $\mathbf{Q}$ 
+ is expressed as 
+\begin{equation}
+\begin{aligned} 
+ \frac{D\mathbf{Q}}{Dt} &= \mathbf{Q}\cdot\nabla \mathbf{v}+(\nabla \mathbf{v})^T\cdot\mathbf{Q}-\frac{1}{\lambda}(\mathbf{Q}-\mathbf{I}), \\
+  \mathbf{\sigma}^{\nu} &= c\eta(\mathbf{Q}-\mathbf{I}),
+  \end{aligned}
+\end{equation}
+where $\mathbf{Q}$ is a $3\mathrm{x}3$ tensor in the $3D$ case; $\lambda\in[0,1]$ is a relaxation time used to describe the fluid's elastic strength; $c$ is the concentration of the polymer; $\eta$ is the viscosity of the fluid; and $\mathbf{\sigma}^{\nu}$ is the viscoelastic stress. Using this model, the two-phase viscosity model proposed in previous work~\cite{zhang2024multiphase} is computed as 
+\begin{equation}
+ \bar{\mathbf{\sigma}}^{\nu}_i = \alpha_{i,1} \eta_s \nabla^2\bar{\mathbf{v}}_i + \alpha_{i,2} \eta_s (\mathbf{Q}-\mathbf{I}).
+\end{equation}
+This approach combines the $\nabla^2\mathbf{v}$ and $\mathbf{\sigma}^{\nu}$ into a two-phase viscosity scheme. \new{In the baseline, the two phases use heterogeneous constitutive paths: Laplacian-based viscosity for water and a conformation tensor correction for the polymer; the total viscous stress is computed by linear blending. This ``compute-then-blend'' scheme is not equivalent to a single mixture constitutive law and can produce interface-sensitive artifacts due to non-commutativity and mismatched numerical stabilization.}
+
+The multi-mode conformation tensor method~\cite{bird1987dynamics} extends the conformation tensor approach. It assumes multiple distinct polymer species in the solution, each with its own individual conformation. Its fundamental equation is
+\begin{equation}
+\begin{aligned}
+ \frac{D\mathbf{Q}_n}{Dt} &= F(\mathbf{Q}_n) + \sum_\mathrm{others} G(\mathbf{Q}_n, \mathbf{Q}_\mathrm{other}), \\
+  \bar{\mathbf{\sigma}}^{\nu} &= \sum_n \mathbf{\sigma}^{\nu}_n,
+  \end{aligned}
+  \label{eq:ori_mm}
+\end{equation}
+where $n$ is the conformation index; $F(\mathbf{Q}_n)$ is the conformation evolution equation; and $\sum_\mathrm{others} G(\mathbf{Q}_n, \mathbf{Q}_\mathrm{other})$ accounts for the influence of other conformations during the conformation evolution. This method typically assumes that each conformation evolves independently, which implies that $G(\mathbf{Q}_n, *) = 0$.
+
+Given the strong consistency between the concepts of phase volume fraction in the mixture model and polymer concentration in the conformation tensor method, we can extend this model into the mixture model. We set a separate conformation for each phase
+\begin{equation}
+\begin{aligned}
+ &\frac{D\mathbf{Q}_{i,k}}{Dt} = F(\mathbf{Q}_{i,k}), \\
+ &\bar{\mathbf{\sigma}}^{\nu}_{i} = \sum_k \alpha_{i,k}\eta^0_k(\mathbf{Q}_{i,k}-\mathbf{I}),
+  \end{aligned}
+  \label{eq:mm_1}
+\end{equation}
+where $\eta^0_k$ is the rest viscosity of phase $k$. For $F(\mathbf{Q}_{i,k})$, we use the \textit{Giesekus} model~\cite{bird1987dynamics} given by
+\begin{equation}
+\begin{aligned}
+ F(\mathbf{Q}_{i,k}) = \mathbf{Q}_{i,k}&\cdot\nabla \mathbf{v}+(\nabla \mathbf{v})^T\cdot\mathbf{Q}_{i,k}- \\
+ &\frac{1}{\lambda^0_k}(\mathbf{Q}_{i,k}-\mathbf{I}) - \gamma^0_k(\mathbf{Q}_{i,k}-\mathbf{I})\mathbf{Q}_{i,k},
+   \end{aligned}
+   \label{eq:mm_2}
+\end{equation}
+where $\gamma \in [0,1]$ is a shear-thinning factor. As $\gamma$ increases, the shear-thinning ability of the phase is enhanced.
+
+\subsection{Coupling with the Implicit Mixture Model}
+\label{sec:method_mpct-imm}
+
+\new{We use the implicit mixture model~\cite{xu2023implicitly} as the basic framework. This requires computing the momentum exchange between the mixture and each phase via $C_d$. 
+Here, $C_d$ follows the definition in the implicit mixture model, where it serves as a \textbf{global control factor} governing the baseline strength of inter-phase drift under inviscid conditions. 
+Physically, $C_d$ regulates the overall degree of momentum coupling between the mixture and its constituent phases without directly depending on viscosity. 
+When viscous effects become significant, their influence on the drift dynamics is not controlled by $C_d$ but is  \textbf{secondarily modulated} by our proposed \emph{Impact Function} (Sec.~\ref{sec:method_if}), which incorporates viscosity-dependent and local strain-rate effects. 
+Hence, $C_d$ and the viscosity parameter $\eta$ play complementary roles: $C_d$ provides the global baseline of coupling intensity, while $\eta$ contributes to the local viscous modulation through the Impact Function.}
+
+\new{The mixture viscoelastic stress can be assembled via  Eqns.~\eqref{eq:mm_1} and \eqref{eq:mm_2}. The Polymer Conformation Tensor method is inherently macroscopic -- it provides the \emph{resultant mixture stress} rather than the motion of individual chains. If one applies viscoelastic forces of each conformation directly to \emph{phase} velocities, the phase-wise forces generally do not sum to the unique mixture-level force and they are injected outside the mixture’s implicit projection. This non-conservative and inconsistent coupling introduces spurious sources in the relative-momentum equations and causes phase drift. We thus compute the viscoelastic force once at the mixture level and map it to phases through a locally conservative distribution \emph{within the same implicit (pressure/viscosity) projection}, similar in spirit to how the pressure profile is handled.}
+
+Specifically, we first compute the viscoelastic mixture stress $\bar{\mathbf{\sigma}}^{\nu}_{i}$ according to Eqns.\ref{eq:mm_1} and \ref{eq:mm_2} and uniformly distribute it across all phases. We adjust the stress contribution to each phase using the parameter $C_d$ via
+\begin{equation}
+\begin{aligned}
+ \bar{\mathbf{M}}^\mathrm{\nu}_i &= \nabla \cdot \bar{\mathbf{\sigma}}^{\nu}_{i}, \\
+  \mathbf{M}^\mathrm{\nu}_{i,k} &= \alpha_{i,k}\bar{\mathbf{M}}^\mathrm{\nu}_i, \\
+  \frac{D\mathbf{v}^\mathrm{\nu}_{i,k}}{Dt} = \frac{\bar{\mathbf{M}}^\mathrm{\nu}_i}{\bar{\rho}_i}&\left(C_d+(1-C_d)\frac{\bar{\rho}_i}{\rho^0_k}\right).
+     \end{aligned}
+     \label{eq:inter_vis_acc}
+\end{equation}
+This has the advantage of preserving momentum conservation while ensuring numerical stability.
+
+\subsection{Impact Functions}
+\label{sec:method_if}
+
+As discussed in Sec.\ref{sec:method_mpct}, the multi-mode conformation tensor method typically assumes that each mode evolves independently with no interaction with others. When extending this approach into the implicit mixture model in Sec.\ref{sec:method_mpct-imm}, a notable issue arises: Under the same conditions (same $C_f$ and $C_d$), regardless of how the viscosity and elasticity parameters of each conformation are configured, the multiphase characteristics of the mixture, e.g., the rates of phase diffusion and phase separation, are influenced solely by $C_f$ and $C_d$. 
+
+In general, high-viscosity fluids are more difficult to mix, and different regions may exhibit distinct diffusion characteristics. To model how configurational viscosity influences mixing behavior, we introduce a controllable impact function.
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[trim=2 2 2 2, clip,width=0.9\columnwidth]{pics/png/impaction.png}
+\end{center}
+\caption{Impact model. This illustrates a scenario involving a three-phase fluid. The \textbf{Fluid Domain} represents the neighborhood of a mixed particle $i$, where arrows indicate the viscous friction exerted by neighboring particles on particle $i$. The orange regions depict the conformation volumes occupied by other phases under different cases, which are used to quantify the degree of interaction between conformations.}
+\label{fig:impaction}
+\end{figure}
+
+Using Eqn.\ref{eq:ori_mm} to define the influence between any two conformations is cumbersome and significantly increases the computational cost with the number of phases. We address this by a simplified relationship that defines the combined influence of other conformations on the current conformation (Fig.~\ref{fig:impaction}).
+
+Since interactions between conformations directly affect the velocity changes of each phase, and explicitly defining the function $G(\mathbf{Q}_n, *)$ is not straightforward, we implicitly map these interactions onto interphase friction as
+\begin{equation}
+ \frac{D\mathbf{v}^\mathrm{\nu}_{i,k}}{Dt} = {\mathbf{a}^\mathrm{\nu}_{i,k}}^* + \frac{1}{\Delta t}\sum_j b_k(1-\alpha_{j,k})V_0(\bar{\mathbf{v}}_j - \mathbf{v}_{i,k})W_{ij},
+  \label{eq:impaction}
+\end{equation}
+where ${\mathbf{a}^\mathrm{\nu}_{i,k}}^*$ is the intermediate viscous acceleration, computed using Eqn.\ref{eq:inter_vis_acc}; $b_k$ is the impact factor (IF) of other phases on phase $k$; and $(1-\alpha_{i,k})V_0$ is the conformation interaction volume of other phases.
+
+For setting $b_k$, we propose two approaches: one is to manually assign a fixed value as $b_k = b^0$, indicating uniform influence among phases; the other is to automatically adjust $b_k$ based on the viscosity of each phase as
+\begin{equation}
+ b_{k'} = \left( \frac{\eta_{k'}}{\sum_k \eta_k}\right)^\beta.
+  \label{eq:compute_bk}
+\end{equation}
+Both approaches allow flexible control of phase diffusion effects. Setting $\beta > 0$ makes higher viscosity lead to greater interphase influence; setting $\beta < 0$ creates a negative correlation between viscosity and interphase influence. This method provides high modeling freedom, enabling the creation of diverse fluid behaviors.
+
+\subsection{Surface Tension}
+\label{sec:method_st}
+
+For fluids with varying viscosities, we apply surface tensions of different magnitudes to prevent artifacts. For this, we use the model of Akinci \emph{et al.}\,\cite{akinci2013versatile}. In the mixture model, surface tension is treated as a body force that uniformly applied to each phase via
+\begin{equation}
+ \mathbf{n}_i = h\sum _j V_0\nabla W_{ij},
+\label{eq:st_normal}
+\end{equation}
+\begin{equation}
+\begin{aligned} 
+ \frac{D\mathbf{v}^\mathrm{surf}_{i,k}}{Dt} = \sum _j -\kappa \frac{2\bar{\rho}_i}{\bar{\rho}_i + \bar{\rho}_j}(m_i &m_j W^{\mathrm{surf}}_{ij}\frac{\mathbf{x}_{ij}}{\|\mathbf{x}_{ij}\|} + \\
+ &m_i (\mathbf{n}_i - \mathbf{n}_j)),
+ \end{aligned}
+\label{eq:st}
+\end{equation}
+where $\kappa$ is the surface tension coefficient and $W^{\mathrm{surf}}_{ij}\Rightarrow W^{\mathrm{surf}}(\|\mathbf{x}_{ij}\|)$ is a spline function defined in \cite{akinci2013versatile} as
+\begin{equation}
+    W^{\mathrm{surf}}(d) = \frac{32}{\pi h^9}
+    \begin{cases}
+        (h-d)^3d^3, & 0.5h < l \leq h, \\
+        2(h-d)^3d^3 - \frac{h^6}{64}, & 0 \leq l \leq 0.5h, \\
+        0, & \mathrm{otherwise.}
+    \end{cases}
+\end{equation}
+
+\subsection{Parameters and Algorithm}
+\label{sec:method_algo}
+
+\begin{algorithm}[htbp]
+\caption{Simulation for Multiphase Viscoelastic Fluids}
+\begin{algorithmic}
+\STATE 
+\STATE {\textsc{Prepare:}}
+\STATE \hspace{0.5cm} \textbf{for} particle $i$ \textbf{do}:
+\STATE 1- \hspace{0.55cm} \textbf{for} phase $k$ of particle $i$ \textbf{do}:
+\STATE \hspace{1.5cm} set $\mathbf{Q}_{i,k}$ to $\mathbf{I}$
+\STATE 2- \hspace{0.55cm} precompute each $b_k$ \hfill Eq.~\ref{eq:compute_bk}
+\STATE 3- \hspace{0.55cm} update neighbors of each particle
+\STATE {\textsc{-END PREPARE-}}
+\STATE
+
+\STATE {\textsc{Loop:}}
+\STATE \hspace{0.2cm} \textbf{I. Solving Forces}
+\STATE \hspace{0.5cm} \textbf{for} particle $i$ \textbf{do}:
+\STATE 1- \hspace{0.55cm} compute div-free force $\mathbf{a}^{\mathrm{p,div}}_{i}$ \hfill DFSPH
+\STATE \hspace{1cm} \textbf{for} phase $k$ of particle $i$ \textbf{do}:
+\STATE \hspace{1.5cm} distribute pressure forces to $\mathbf{a}^{\mathrm{p}}_{i,k}$ \hfill Eq.~\ref{eq:imm_p_2}
+\STATE \hspace{1.5cm} update $\mathbf{v}_{i,k} \gets \mathbf{v}_{i,k} + \mathbf{a}^{\mathrm{p}}_{i,k} \Delta t$ 
+\STATE \hspace{1cm} update mixture velocity $\bar{\mathbf{v}}_i$ \hfill Eq.~\ref{eq:mix_v}
+
+\STATE 2- \hspace{0.55cm} compute body forces: $\mathbf{g},\mathbf{a}^\mathrm{surf}_{i}$ \hfill Eqs.~\ref{eq:st_normal}, \ref{eq:st}
+\STATE \hspace{1cm} \textbf{for} phase $k$ of particle $i$ \textbf{do}:
+\STATE \hspace{1.5cm} update $\mathbf{v}_{i,k} \gets \mathbf{v}_{i,k} + (\mathbf{g} + \mathbf{a}^{\mathrm{surf}}_{i}) \Delta t$ 
+\STATE \hspace{1cm} update mixture velocity $\bar{\mathbf{v}}_i$ \hfill Eq.~\ref{eq:mix_v}
+
+\STATE 3- \hspace{0.55cm} \textbf{for} phase $k$ of particle $i$ \textbf{do}:
+\STATE \hspace{1.5cm} update $\mathbf{Q}_{i,k}$ \hfill Eq.~\ref{eq:mm_2}
+\STATE \hspace{1cm} compute mixture stress $\bar{\mathbf{\sigma}}^{\nu}_{i}$ \hfill Eq.~\ref{eq:mm_1}
+\STATE \hspace{1cm} \textbf{for} phase $k$ of particle $i$ \textbf{do}:
+\STATE \hspace{1.5cm} compute viscoelastic force $\mathbf{a}^{\mathrm{\nu}}_{i,k}$ \hfill Eq.~\ref{eq:inter_vis_acc}, \ref{eq:impaction}
+\STATE \hspace{1.5cm} update $\mathbf{v}_{i,k} \gets \mathbf{v}_{i,k} + \mathbf{a}^{\mathrm{\nu}}_{i} \Delta t$
+\STATE \hspace{1cm} update mixture velocity $\bar{\mathbf{v}}_i$ \hfill Eq.~\ref{eq:mix_v}
+
+\STATE 4- \hspace{0.55cm} compute incompressible force $\mathbf{a}^{\mathrm{p,inc}}_{i}$ \hfill DFSPH
+\STATE \hspace{1cm} \textbf{for} phase $k$ of particle $i$ \textbf{do}:
+\STATE \hspace{1.5cm} distribute pressure forces to $\mathbf{a}^{\mathrm{p}}_{i,k}$ \hfill Eq.~\ref{eq:imm_p_2}
+\STATE \hspace{1.5cm} update $\mathbf{v}_{i,k} \gets \mathbf{v}_{i,k} + \mathbf{a}^{\mathrm{p}}_{i,k} \Delta t$ 
+\STATE \hspace{1cm} update mixture velocity $\bar{\mathbf{v}}_i$ \hfill Eq.~\ref{eq:mix_v}
+
+\STATE \hspace{0.2cm} \textbf{II. Advect}
+\STATE \hspace{0.5cm} \textbf{for} particle $i$ \textbf{do}:
+\STATE \hspace{1cm} update $\mathbf{x}_i \gets \mathbf{x}_i + \bar{\mathbf{v}}_i\Delta t$
+
+\STATE \hspace{0.2cm} \textbf{III. Post Steps}
+\STATE 1- \hspace{0.1cm} \textbf{for} particle $i$ \textbf{do}:
+\STATE \hspace{1cm} conduct phase transfer to update $\alpha_{i,k}$ \hfill Eq.~\ref{eq:mm_phase_trans}
+\STATE \hspace{1cm} update mixture density $\bar{\rho}_i$ \hfill Eq.~\ref{eq:mix_rho}
+\STATE \hspace{1cm} update mixture mass $m_i \gets V_0\bar{\rho}_i$
+\STATE 2- \hspace{0.1cm} update neighbors of each particle
+\STATE {\textsc{-END LOOP-}}
+
+\end{algorithmic}
+\label{algo:main}
+\end{algorithm}
+
+Algorithm~\ref{algo:main} gives the workflow of our approach. In the PREPARE stage, all conformation tensors are initialized to $\mathbf{I}$ (PREPARE-1), indicating that the fluid starts deformation-free. The fixed parameter $b_k$ is computed only once (PREPARE-2), followed by an initialization of neighbor particles (PREPARE-3). In the LOOP stage, the velocity change for each fluid phase is first computed, incorporating contributions from pressure (LOOP-I-1, LOOP-I-4), body forces (LOOP-I-2), and viscoelastic force (LOOP-I-3). Next, the updated mixture velocities are used to update particle positions (LOOP-II). Subsequently, post-processing steps are performed, including updating the volume fraction of each fluid phase based on diffusion conditions and drift velocity, and updating mixture physical fields (LOOP-III-1). Finally, the neighborhoods are recomputed (LOOP-III-2).
+
+For the evolution of the conformation tensor (Eqn.~\ref{eq:mm_2}), we adopt a forward Euler integration scheme, as explicit integration is computationally more efficient than implicit integration in multiphase settings with high-viscosity fields.
+
+\section{Experiments}
+\label{sec:experiments}
+
+To validate the effectiveness of our method in simulating various types of fluids, we designed multiple experiments covering single-phase fluid behavior, multiphase fluid interactions, and method comparisons. All experiments were conducted on a system equipped with an i5-13400F CPU and an RTX 4070 Ti GPU.
+
+\smallskip
+\noindent {\bf{Viscoelastic Ducks:}} In this experiment, we primarily show the effects of different viscosity parameters ($\eta$) and elasticity parameters ($\lambda$) on single-phase fluid behavior. When the fluid consists of only one phase, our model reduces to a method based on a single polymer conformation tensor, requiring adjustments only to the viscoelastic parameters and surface tension coefficient. We set up a total of seven duck models (Fig.\ref{fig:vis_ducks}). In the first row, from left to right, the viscosity gradually increases. The second row shows the effects of varying elasticity parameters under the same viscosity as in the first row. We see that our model supports large-scale viscoelastic single-phase fluid simulations under relatively large time steps, delivering stable and accurate results.
+
+\begin{figure*}[htbp]
+\begin{center}
+\includegraphics[trim=5 5 5 5, clip,width=\textwidth]{pics/png/ducks.png}
+\end{center}
+\caption{Viscoelastic Ducks. We assigned different viscoelastic properties to seven ducks, and the results at t=1.571s are shown in the figure. Elasticity can complement viscosity; for example, the behavior of a fluid with a viscosity of 
+10 Pa $\cdot$ s and a relaxation time of 0.001 is comparable to that of a fluid with a viscosity of 1 Pa $\cdot$ s and a relaxation time of 0.01.}
+\label{fig:vis_ducks}
+\end{figure*}
+
+\smallskip
+\noindent {\bf{Coiling and Buckling Effect:}} In this experiment, we use two scenarios to showcase the complex flow behaviors characteristic of high-viscoelastic fluids: \emph{coiling} and \emph{buckling}. Figure~\ref{fig:coiling} shows the \emph{coiling} behavior of three fluids with varying viscoelastic properties, increasing from left to right. Different viscoelasticity levels require adjusting the surface tension strength to optimize the fluid's surface dynamics. Figure~\ref{fig:buckling} compares the buckling effect for three different viscoelastic fluids consisting of a three-phase fluid, where the viscosity and relaxation time  of the three phases are $\eta^0_k = \{0.01 \mathrm{Pa} \cdot \mathrm{s}, 5 \mathrm{Pa} \cdot \mathrm{s}, 8 \mathrm{Pa} \cdot \mathrm{s}\}, \lambda^0_k = \{0.001, 0.002, 0.003\}$. The results show that our model effectively captures the complex flow behavior of high-viscoelastic fluids.
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=\columnwidth]{pics/coiling.pdf}
+\end{center}
+\caption{Coiling Effect. We conducted an observation of the coiling effect using three single-phase fluid columns with different viscoelastic properties. The viscosity and relaxation time settings \{$\eta, \lambda$\}, from left to right, were \{5 Pa $\cdot$ s, 0.002\}, \{10 Pa $\cdot$ s, 0.003\}, and \{10 Pa $\cdot$ s, 0.01\}. It can be observed that as viscosity and relaxation time increase, the coiling effect becomes more pronounced. Additionally, the fluid retains its shape more effectively, and the fluid boundary surface becomes clearer.}
+\label{fig:coiling}
+\end{figure}
+
+\begin{figure*}[htbp]
+\begin{center}
+\includegraphics[trim=5 5 5 5, clip,width=0.8\textwidth]{pics/png/buckling_v2.png}
+\end{center}
+\caption{Buckling Effect. We set up a three-phase fluid scene consisting of three immiscible fluids ($C_f \rightarrow 0$ and $C_d \rightarrow 1$), where the first phase is water, and the viscoelasticity of the subsequent two phases increases progressively. The parameters for the fluids are as follows: the orange-yellow honey has $\alpha_k = \{0.05, 0.9, 0.05\}$; the light yellow peanut butter is set with $\alpha_k = \{0.7, 0.3, 0.0\}$; and the red ketchup is defined by $\alpha_k = \{0.4, 0.4, 0.2\}$. Notably, the honey and ketchup exhibit distinct buckling effects.}
+\label{fig:buckling}
+\end{figure*}
+
+\smallskip
+\noindent {\bf{Shear-thinning Effect:}} In this experiment, we show the shear-thinning capability of our model. We used a three-phase fluid with identical viscosities ($\eta$) but different shear-thinning coefficients ($\gamma$ in Eqn.~\ref{eq:mm_2}), represented by five armadillos with varying phase fractions. These armadillos collide with an inclined arc surface at an initial downward velocity of 5 m/s (Fig.~\ref{fig:shear_thinning}). The experiment shows the impact of different shear-thinning coefficients on the fluid's flow behavior.
+
+\begin{figure*}[htbp]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{pics/shear_thinning.pdf}
+\end{center}
+\caption{Shear Thinning Effect. We used a three-phase fluid with varying phase fraction settings to control the shear-thinning coefficient $\gamma$ of each armadillo. A higher shear-thinning coefficient results in a greater reduction in viscosity under shear forces. The phase fractions and corresponding equivalent shear-thinning coefficients for the five armadillos are shown in the figure. The viscosity of the fluid increases progressively from red → yellow → green → cyan → blue.}
+\label{fig:shear_thinning}
+\end{figure*}
+
+\smallskip
+\noindent {\bf{Controllable Conformation Impactions:}} In this experiment, we show the impact of the conformation impact factor (IF) on multiphase flow from the perspectives of fluid mixing and phase separation. Figure~\ref{fig:4pf_mix_if} illustrates the delay effect of different impact factor values on mixing in a four-phase fluid scenario. Figure~\ref{fig:5pf_sep_if} 
+shows the delay effect of varying impact factor values on phase separation in a five-phase uniform fluid. All effects are highly controllable, with larger impact factor values modeling greater resistance to the motion of conformations.
+
+\begin{figure*}[htbp]
+\setlength{\belowcaptionskip}{-5mm}
+\includegraphics[width=\textwidth]{pics/png/bear.png}
+\caption{Bear Bath. This experiment demonstrates the stable coupling of two fluids with a high viscosity ratio in a free, high-speed motion scenario. The scenario employs particle-based rendering to visualize the fluid, enabling a clearer observation of the flow behavior of the fluid particles. The red bear represents the highly viscoelastic fluid, while water with low viscosity falls from the top.}
+\label{fig:bear}
+\end{figure*}
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=\columnwidth]{pics/4pf_mix_if.pdf}
+\end{center}
+\caption{The Impact of Conformation impact factors on Mixing. Our conformation impact function quantifies the interactions between conformations and maps these interactions to changes in phase velocity. The figure illustrates the effect of different conformation impact factors on the mixing behavior. As the factor increases, the mixing rate between phases decreases, indicating a greater hindrance to the drift of other phases relative to the current phase.}
+\label{fig:4pf_mix_if}
+\end{figure}
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=\columnwidth]{pics/png/5pf_sep_if.png}
+\end{center}
+\caption{The Impact of Conformation Impact factors on Separating. We configured three different Impact Factor (IF) values to observe their effect on phase separation. The left ball has an IF value of 0, the middle ball 0.01, and the right ball 0.1. The higher the impact factor value, the slower the phase separation speed.}
+\label{fig:5pf_sep_if}
+\end{figure}
+
+% \begin{figure*}[htbp]
+% \begin{center}
+% \includegraphics[width=\textwidth]{pics/5pf_sep_if.pdf}
+% \end{center}
+% \caption{The Impact of Conformation impact factors on Separating. We configured three different Impact Factor (IF) values to observe their effect on phase separation. The left ball has an IF value of 0, the middle ball 0.01, and the right ball 0.1. The higher the impact factor value, the slower the phase separation speed.}
+% \label{fig:5pf_sep_if}
+% \end{figure*}
+
+\smallskip
+\noindent {\bf{Stable Mixing Behavior:}} In this experiment, we designed two simple scenarios to compare the stability of different methods when mixing fluids with high viscosity ratios. Comparisons were conducted against the IMM and IMM-CT~\cite{zhang2024multiphase} methods. Figure~\ref{fig:4pf_comp} shows the comparison with the IMM method. When mixing high-viscosity fluids, IMM exhibits numerical instability, leading to particle splashing, even for small time steps. Figure~\ref{fig:2pf_comp} shows the comparison with the IMM-CT method. When simulating low-viscosity fluids, IMM-CT introduces volume expansion artifacts. Our method shows stable performance in both scenarios for a fixed time step of 1 ms.
+
+\smallskip
+\new{
+\noindent\textbf{Quantitative Evaluation:}
+We conduct a quantitative comparison between MCT and IMM-CT in a gravity-free droplet impact experiment to evaluate their conservation performance.
+Under identical high-speed interphase transfer conditions (including the same $C_d$, $C_f$, viscosity, and other parameters), we measure the evolution of mass and momentum errors over 100 simulation steps, as shown in Fig.~\ref{fig:conservation}.
+MCT is able to maintain mass and momentum consistency throughout the simulation.
+In contrast, IMM-CT exhibits increasing momentum deviation and noticeable oscillations, which stem from the accumulation of errors in its viscous stress calculation during rapid interfacial interactions.
+This comparison suggests that our method offers more reliable mass and momentum conservation, and that the unified viscosity formulation adopted in MCT yields improved robustness in fast interphase transfer scenarios.
+}
+
+\begin{figure*}[htbp]
+\begin{center}
+\includegraphics[trim=5 5 5 5, clip,width=\textwidth]{pics/png/4pf_compare.png}
+\end{center}
+\caption{Four-phase fluid mixing. We compared the mixing behavior of four-phase fluids with a high viscosity ratio using two different methods. In the figures, IMM refers to the viscosity scheme of the Implicit Mixture Model\cite{xu2023implicitly}. The green phase has a fluid viscosity of 0.01 Pa $\cdot$ s, the yellow phase 0.1 Pa $\cdot$ s, the blue phase 0.5 Pa $\cdot$ s, and the red phase 5 Pa $\cdot$ s. According to the original IMM paper, the method ensures the conservation of viscous momentum when fluid viscosities are uniform and produces no significant artifacts for small viscosity ratios. However, when the viscosity ratio is high, instability arises, such as abnormal splashing behavior observed at $t_4$ and $t_5$. In contrast, our method achieves stable mixing for fluids with high viscosity ratios.}
+\label{fig:4pf_comp}
+\end{figure*}
+
+\begin{figure*}[htbp]
+\begin{center}
+\includegraphics[width=\textwidth]{pics/png/2pf_compare.png}
+\end{center}
+\caption{Two-phase fluid mixing. We compared the free mixing behavior of fluids with high and low viscosities using two different methods. In the figure, IMM-CT represents a method based on a single conformation tensor \cite{zhang2024multiphase}. The red angular sphere represents a fluid with a viscosity of 0.01 Pa $\cdot$ s, while the blue angular sphere represents a fluid with a viscosity of 5 Pa $\cdot$ s. The IMM-CT method, due to its coupled viscosity scheme, introduces numerical instability in viscosity calculations, resulting in volume expansion for low-viscosity fluids. In contrast, our method effectively maintains fluid volume throughout the simulation.}
+\label{fig:2pf_comp}
+\end{figure*}
+
+\smallskip
+\noindent {\bf{Two-phase High-Viscosity-Ratio Fluids Interaction:}} We designed a scenario to verify the stable interaction of two-phase fluids at high viscosity ratios (Fig.~\ref{fig:bear}). The bear and raindrop are uniformly represented by two-phase fluids; the blue phase has a viscosity of 0.01 Pa $\cdot$ s; the red phase has a viscosity of 100 Pa $\cdot$ s and a larger elastic coefficient. We render the scene with particles for a better observation of fluid behavior.
+
+\smallskip
+\noindent {\bf{Complex Multi-phase Fluids Interaction:}} In this experiment, we demonstrate a complex interaction scenario between multiphase fluids and a viscous rigid body (Fig.\ref{fig:emit}). We simulate 10 fluid cannonballs, each consisting of five phases, colliding at high speed with a rigid-body horse. Due to varying phase fractions, the cannonballs exhibit different viscoelastic properties. The simulation uses a fixed time step of 1 ms. This experiment highlights the robustness of our method in complex, dynamic multiphase fluid scenarios, producing highly stable and visually realistic fluid effects.
+
+\begin{figure}[htbp]
+    \centering
+
+    \subfloat[Gravity-free droplet impact experiment]{%
+        \includegraphics[width=0.35\textwidth]{pics/png/value_compare.png}
+        \label{fig:value_compare}
+    }
+
+    \vspace{0.8em}
+
+    \subfloat[Statistics over time]{%
+        \includegraphics[width=0.45\textwidth]{pics/png/statistic.png}
+        \label{fig:statistic}
+    }
+
+    \caption{\new{Mass and momentum conservation comparison.}}
+    \label{fig:conservation}
+\end{figure}
+
+
+\begin{figure*}[htbp]
+\begin{center}
+\includegraphics[width=\textwidth]{pics/emit.pdf}
+\end{center}
+\caption{Cannonballs hit the horse. We simulate the high-speed shooting of rigid-body horses using 10 fluid cannonballs, each consisting of five phases, with the phase fractions varying for each cannonball. The parameters for the five phases are as follows: $\eta^0_k$ = \{0.01 Pa $\cdot$ s, 0.05 Pa $\cdot$ s, 0.25 Pa $\cdot$ s, 0.75 Pa $\cdot$ s, 5 Pa $\cdot$ s\}, $\lambda^0_k$ = \{0.001, 0.0012, 0.0014, 0.0018, 0.003\}, and $\rho^0_k$ = \{800, 900, 1000, 1100, 1200\}. For this setup, the maximum density ratio is 1.5, and the maximum viscosity ratio is 500. The launch speed of all fluid cannonballs is set to 20 m/s, with a fixed time step of 1 ms for the simulation. The fluid behavior is dynamic, and the fluid color of each frame is computed based on the phase fractions.}
+\label{fig:emit}
+\end{figure*}
+
+\begin{table}[htbp]
+\caption{Timing Settings}
+\centering
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\textbf{Scene} & \makecell{\textbf{Total} \\ \textbf{particles}} & \textbf{Method} & \makecell{$\mathbf{\Delta t}$ \\ \textbf{(ms)}}& \makecell{\textbf{Timing cost for} \\ \textbf{1s of animation (s)}}\\
+\hline
+Fig.~\ref{fig:vis_ducks} & 300k & Ours(MCT) & 0.8 & 22.3\\
+Fig.~\ref{fig:coiling} & 45k & Ours(MCT) & 0.5 & 5.451\\
+Fig.~\ref{fig:buckling} & 230k & Ours(MCT) & 0.5 & 39.403\\
+Fig.~\ref{fig:shear_thinning} & 1.1m & Ours(MCT) & 1.0 & 65.087\\
+Fig.~\ref{fig:5pf_sep_if} & 88k & Ours(MCT) & 1.0 & 11.049\\
+Fig.~\ref{fig:4pf_comp} & 347k & IMM & 0.1 & 161.69\\
+Fig.~\ref{fig:4pf_mix_if}, \ref{fig:4pf_comp} & 347k & Ours & 0.35 & 72.679\\
+Fig.~\ref{fig:2pf_comp} & 184k & IMM-CT & 1.0 & 6.159\\
+Fig.~\ref{fig:2pf_comp} & 184k & Ours(MCT) & 1.0 & 6.191\\
+Fig.~\ref{fig:conservation} & 200k & Ours(MCT), IMM-CT & 1.0 & 6.311\\
+Fig.~\ref{fig:emit} & 1.2m & Ours(MCT) & 1.0 & 88.459\\
+\hline
+\end{tabular}
+% \begin{tablenotes}
+%             \item[a] In the "Method" column of the table, "-" indicates our method.
+%         \end{tablenotes}
+\label{tab:scene_settings}
+\end{table}
+
+\section{Conclusion}
+\label{sec:conclusion}
+
+In this work, we proposed a novel viscoelastic solver based on a mixture model and the multi-mode conformation tensor method for Newtonian and shear-thinning fluids. The framework demonstrates its capability to handle a wide range of viscoelastic behaviors while maintaining numerical stability and computational efficiency, particularly in high-viscosity-ratio and complex fluid interaction scenarios. By integrating adjustable interphase influence mechanisms and a controllable conformation impact function, our approach allows for flexible tuning of phase diffusion and separation dynamics.
+
+Future work may include extending this method to multi-physics coupling and designing more precise numerical schemes to achieve a wider range of animation effects, such as the interaction between viscoelastic fluids, viscoplastic fluids, elastic bodies, and granular materials.
+
+\section{Acknowledgements}
+
+This work was supported by the National Natural Science Foundation of China (Grant No. 62306032), the Interdisciplinary Research Project for Young Teachers of USTB (Grant No. FRF-IDRY-GD24-003). Computational resources were partially provided by the MAGICOM Platform of the Beijing Advanced Innovation Center for Materials Genome Engineering. We sincerely thank all funding agencies and institutions for their support.
+
+\clearpage
+\bibliographystyle{IEEEtran}
+\bibliography{main}
+
+\vfill
+
+\end{document}

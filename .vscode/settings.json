@@ -1,0 +1,55 @@
+{
+  "editor.wordWrap": "on",
+  "editor.experimental.asyncTokenization": true,
+  "[latex]": {
+    "editor.wordWrap": "on"
+  },
+  "[tex]": {
+    "editor.wordWrap": "on"
+  },
+
+  "latex-workshop.latex.outDir": "./out-build",
+  "latex-workshop.latex.tools": [
+    {
+      "name": "xelatex",
+      "command": "xelatex",
+      "args": [
+        "-interaction=nonstopmode",
+        "-halt-on-error",
+        "-file-line-error",
+        "-synctex=1",
+        "-output-directory=out-build",
+        "%DOC%"
+      ]
+    },
+    {
+      "name": "biber",
+      "command": "biber",
+      "args": [
+        "--output-directory",
+        "out-build",
+        "%DOCFILE%"
+      ]
+    }
+  ],
+  "latex-workshop.latex.recipes": [
+    {
+      "name": "xelatex*2 (out-build)",
+      "tools": [
+        "xelatex",
+        "xelatex"
+      ]
+    }
+  ],
+  "latex-workshop.latex.recipe.default": "xelatex*2 (out-build)",
+
+  "latex-workshop.view.pdf.viewer": "tab",
+  "latex-workshop.view.pdf.internal.synctex.keybinding": "double-click",
+  "latex-workshop.view.pdf.internal.synctex.command": "editor",
+
+  "latex-workshop.structure.hideEnvs": [
+    "figure",
+    "table",
+    "equation"
+  ]
+}

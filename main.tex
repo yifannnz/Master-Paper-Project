@@ -1,0 +1,109 @@
+%建议使用TeXWorks，选择XeLaTeX运行
+%
+
+\documentclass{ustbthesis}
+
+\usepackage{tabularx}
+\usepackage{amsmath}
+\usepackage{subfig} % 去掉caption相关选项，避免与类冲突
+\newcommand{\figref}[1]{~\ref{#1}~}
+\newcommand{\tabref}[1]{~\ref{#1}~}
+\newcommand{\thickhline}{\noalign{\hrule height 0.9pt}}
+\renewcommand{\arraystretch}{1.25}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
+
+% 统一链接为黑色（避免绿色引用）
+\hypersetup{colorlinks=true, linkcolor=black, citecolor=black, urlcolor=black}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%封面信息%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\Author{申龙}
+\EnglishAuthor{Shen Long}
+\Title{原子级纳观影像质量提升与分割算法研究}
+\EnglishTitle{Multiphase Viscoelastic Fluid Simulation and Applications Based on SPH Method}
+\Subtitle{}
+\EnglishSubtitle{}
+\Date{2026年 1月 1日}
+\EnglishDate{January, 2026}
+\College{智能科学与技术学院}
+\EnglishCollege{School of Intelligent Science and Technology}
+\Address{海淀区学院路30号}
+\EnglishAddress{30 Xueyuan Road, Haidian District}
+\Affiliation{北京科技大学}
+\EnglishAffiliation{University of Science and Technology Beijing}
+\Postcode{100083}
+\City{北京}
+\EnglishCity{Beijing}
+\Country{中国}
+\EnglishCountry{P.R.CHINA}
+\StudentCode{M202320826}
+\Major{计算机技术}
+\EnglishMajor{Computer Technology}
+\Direction{图形学方向}
+\EnglishDirection{Computer Graphics}
+\Supervisor{XX}
+\EnglishSupervisor{XX}
+\DegreeType{专业型}
+\EnglishDegreeType{Professional}
+\CLCNumber{}
+\UDCNumber{}
+\UniversityCode{10008}
+\UniversityLogoFile{images/ustb.png}
+\SecurityLevel{公开}
+\SubmissionDate{2026年 1月 1日}
+\EnglishSubmissionDate{January, 2026}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%封面信息%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\TitlePage
+\SecondPage
+\ThirdPage
+
+\setlength{\headheight}{14.5pt}
+\pagestyle{fancy}
+
+%% 中英文摘要
+\cleardoublepage
+\input{contents/abstract}
+%% 序言
+\cleardoublepage
+\input{contents/preclude}
+\tableofcontents
+
+\cleardoublepage
+\input{contents/list}
+\cleardoublepage
+\input{contents/list-sym}
+
+\mainmatter
+\pagestyle{fancy}
+
+\input{contents/chap1-引言}
+\input{contents/chap2-文献综述}
+\input{contents/chap3-质量提升}
+\input{contents/chap4-分割}
+\input{contents/chap5-系统}
+% \input{contents/chap6-BIBM}
+% \input{contents/chap7-Summary}
+
+%% 参考文献（thebibliography：手工录入）
+\cleardoublepage
+\input{contents/bib}
+
+%% 附录
+\cleardoublepage
+\input{contents/appendix}
+%% 致谢
+\cleardoublepage
+\input{contents/thanks}
+%% 作者简历及在学研究成果
+\cleardoublepage
+\input{contents/mresume}
+%% 关于论文使用授权的说明
+\postDeclarations
+%% 学位论文数据集
+\cleardoublepage
+\input{contents/dataset}
+
+\end{document}

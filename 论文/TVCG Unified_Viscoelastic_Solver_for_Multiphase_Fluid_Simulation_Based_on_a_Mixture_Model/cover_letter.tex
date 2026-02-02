@@ -1,0 +1,299 @@
+\documentclass[lettersize,journal,onecolumn]{IEEEtran}
+\usepackage{amsmath,amsfonts}
+\usepackage{algorithmic}
+\usepackage{algorithm}
+\usepackage{array}
+\usepackage[caption=false,font=normalsize,labelfont=sf,textfont=sf]{subfig}
+\usepackage{textcomp}
+\usepackage{stfloats}
+\usepackage{url}
+\usepackage{verbatim}
+\usepackage{graphicx}
+\usepackage{soul}
+\usepackage{svg}
+\usepackage{cite}
+\usepackage{makecell}
+\usepackage{threeparttable}
+\usepackage{ulem}
+\usepackage{color, xcolor}
+\hyphenation{op-tical net-works semi-conduc-tor IEEE-Xplore}
+% updated with editorial comments 8/9/2021
+
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable}
+
+
+\newcommand{\reviewcomment}[2]{%
+  \begin{tcolorbox}[
+    breakable,
+    sharp corners,
+    colback=gray!10,
+    colframe=gray!60,
+    boxrule=0.8pt,
+    title={\textbf{Reviewer #1}},
+    left=6pt, right=6pt, top=6pt, bottom=6pt
+  ]
+  #2
+  \end{tcolorbox}
+}
+
+\newcommand{\todo}[1]{%
+  \begin{tcolorbox}[
+    breakable,
+    sharp corners,
+    colback=yellow!10,
+    colframe=yellow!50!black,
+    boxrule=0.8pt,
+    title={\textbf{TODO}},
+    left=6pt, right=6pt, top=6pt, bottom=6pt
+  ]
+  #1
+  \end{tcolorbox}
+}
+
+\begin{document}
+
+\begin{center}
+    \textbf{Revision of our TVCG submission}\\[2mm]
+    {\large A Unified Viscoelastic Solver for Multiphase Fluid Simulation Based on a Mixture Model}\\[2mm]
+    {TVCG-2025-07-0666}
+\end{center}
+\bigskip
+
+\noindent
+Dear Editor and Reviewers,
+
+\medskip
+
+\noindent We sincerely thank the Associate Editor and all reviewers for their careful evaluation and constructive feedback. We have carefully revised the manuscript to address all comments. Below, we first summarize the main revisions and then provide individual responses to each reviewer. We have also fixed several typos and small-scale issues. All changes in the paper are highlighted in blue.
+
+\bigskip
+
+\noindent
+\textbf{Summary:}
+
+\noindent The manuscript now includes an added high-density-ratio experiment, clearer theoretical exposition, improved quantitative validation, and updated related works. We believe these revisions address all reviewer concerns and strengthen the manuscript in clarity, completeness, and technical rigour.
+
+\medskip
+
+\noindent
+Sincerely,
+
+\medskip
+
+the authors
+
+\vspace{1cm}
+\textbf{For Reviewer 1:}
+
+
+\reviewcomment{R1}{
+  The paper presents an intuitive and reasonable improvement for modeling viscoelastic effects, and the supplementary videos convincingly demonstrate stable and visually appealing results. However, the work lacks sufficient comparative experiments to clearly show progress over IMM-CT. Currently, the only comparison highlights volume preservation, but this improvement is likely not a direct consequence of the viscoelastic model itself, rather of pressure or surface-tension handling. Additional experiments are needed to substantiate the claimed advantages of the proposed method. Furthermore, the paper does not include validation that would demonstrate the physical correctness of the method.
+  }
+
+\textbf{1.} We sincerely thank the reviewer for the insightful comments regarding the need for more standardized validation and the clarification of our comparison with IMM-CT. In response, we have added a new quantitative validation experiment designed to more rigorously assess the physical correctness and numerical stability of our approach (see Figure 12).
+
+Specifically, we constructed a zero-gravity two-phase impact scenario, where a small two-phase block collides at high speed with a larger two-phase block. This setup allows us to isolate the effects of viscoelastic stress propagation without external gravitational influence. The results show that IMM-CT becomes numerically unstable and eventually collapses in the later stages of the simulation, whereas both our method and MCT remain stable and maintain consistent momentum conservation throughout the process.
+
+This additional experiment provides a standardized and physically grounded validation of our method’s correctness and robustness, thereby strengthening the reliability of our experimental evaluation. The manuscript has been updated accordingly to describe this new setup and the corresponding findings.
+
+
+\reviewcomment{R1}{
+  Another issue is that many symbols are not explicitly defined upon first use. Readers often have to refer back to the IMM or IMM-CT papers to understand the notation. For this work to stand as an independent contribution, all symbols should be clearly explained at their first appearance.
+  }
+\textbf{2.} In the revised manuscript, we have added a comprehensive table of notations early in the paper to provide readers with a clear reference for all global symbols. In addition, for symbols that are introduced only locally or used in specific equations, we now explicitly define them immediately below their first appearance.
+
+These revisions ensure that the paper is self-contained and can be read independently of prior IMM or IMM-CT publications. We believe this improvement significantly enhances the readability and accessibility of the manuscript.
+
+\reviewcomment{R1}{The title should begin with “A”, i.e., “A Unified Viscoelastic Solver...”.}
+
+\textbf{3.} We agree, this has been incorporated.
+
+\reviewcomment{R1}{
+  1. The paper seems to lack standardized validation experiments. To rigorously demonstrate correctness, more quantitative and physically grounded validation should be included.
+2. I have concerns regarding the comparison with IMM-CT. The main difference between this work and IMM-CT lies in the viscoelastic modeling. However, the comparison shows improved volume preservation, which seems unlikely to be a direct consequence of the viscoelastic model itself, but rather of correct handling of pressure and surface tension. The authors should better explain the correlation between the observed improvements and the specific contributions of this work.
+3. Since the present work is essentially an improvement of IMM-CT, more comparative experiments are needed to convincingly demonstrate progress over IMM-CT. In particular, the authors should provide more evidence that the proposed component in Section IV-A indeed plays a critical role.
+4. Several symbols are not clearly defined when first introduced. While many of them may be inherited from [1,2], this paper should be self-contained. All symbols should be explained when they first appear, including but not limited to: $M_{i,k}^p, v_{i,k}^p$ in Eq. (7); $a_{i,k}^p, a_{i,k}^{\text{body}}$ in Eq. (10); and $Q_n, Q_{\text{other}}$ in Eq. (13).
+}
+
+\textbf{4.} {We have added additional quantitative experiments to compare IMM-CT with our method on aspects directly related to the proposed approach, including differences in momentum and mass conservation, as shown in Fig. 12. The results indicate that our unified viscosity formulation provides improved numerical stability.
+
+In addition, before presenting the method, we list all key symbols in Table 1 for easy reference. Other symbols are also explained directly below the equations where they first appear.}
+
+\vspace{1cm}
+\textbf{For Reviewer 2:}
+
+\reviewcomment{R2}{
+  In the results, the authors primarily present cases with large viscosity ratios but relatively high minimum viscosities. I recommend including additional cases with smaller viscosities (1e-3, 1e-4), which would make the validation more convincing. It would also be valuable to test cases with large density ratios; if the proposed method cannot handle them, this limitation should be explicitly discussed.
+}
+
+\textbf{1.}	We appreciate the reviewer’s insightful comment. In the original submission, we adopted a moderate density ratio (1.5) to clearly illustrate the numerical behavior and viscoelastic responses under controlled conditions. Although the example uses this setting, our method itself is not restricted to it. Since our framework is built upon the Implicit Mixture Model (IMM), it naturally inherits IMM’s ability to handle a wide range of multiphase configurations, including high-density-ratio and low-viscosity regimes.
+
+From a technical perspective, our method extends IMM by introducing a unified and consistent viscoelastic computation mechanism, which avoids the inconsistent viscous treatment in IMM-CT. Consequently, our approach is capable of reproducing the full spectrum of multiphase flows supported by IMM, while additionally enabling accurate and stable simulation of shear-dependent and viscoelastic behaviors across large viscosity ranges and viscosity ratios. These enhancements broaden the applicability of mixture-model-based multiphase solvers without compromising their robustness.
+
+
+\reviewcomment{R2}{
+  In Figs. 11 and 12, the authors provide comparisons with previous works. I notice that the IMM approach produces more detailed structures, despite showing instabilities in the last two frames. This raises the concern that the present method may rely on stronger artificial viscosity, potentially leading to a loss of fine-scale details. In Fig. 12, the marking lines do highlight differences in volume preservation; however, it remains unclear whether there is a clear and direct comparison with IMM-CT, either in terms of fluid details or computational performance.
+}
+
+\textbf{2.} {The viscosity treatments in IMM and IMM-CT each have their own limitations.
+IMM employs a fully artificial viscosity to integrate viscosity effects into its unified phase-transition framework. While this design ensures a consistent formulation, it is only suitable for low-viscosity scenarios; under medium and high viscosities, the explicit artificial viscosity becomes unstable when larger time steps are used. 
+
+IMM-CT adopts a strongly coupled computation of different viscosities. However, this approach accumulates errors from both viscosity treatments across their respective computational stages. These accumulated errors influence the fluid motion and ultimately affect the estimation of spatial density, which can lead to slight volume expansion in certain scenarios. Due to the strong damping introduced by high viscosity, particle advection becomes limited, so the fluid does not collapse through oscillatory motion, even though such numerical artifacts exist.
+
+Our method introduces a unified viscosity formulation. Compared with explicit artificial viscosity, it supports a wider viscosity range under larger time steps, and it avoids the error accumulation associated with the strong coupling of different viscosity schemes.
+
+We have added additional quantitative experiments to compare IMM-CT with our method on aspects directly related to the proposed approach, including differences in momentum and mass conservation, as shown in Fig. 12. The results indicate that our unified viscosity formulation provides improved numerical stability.}
+
+\reviewcomment{R2}{
+  Missing some recent works.
+1.High Density Ratio Multi-Fluid Simulation with Peridynamics
+2.Kinetic Simulation of Turbulent Multifluid Flows
+}
+
+\vspace{0.5cm}
+\textbf{3.}	We thank the reviewer for pointing out these valuable recent works. We have carefully reviewed and cited both “High Density Ratio Multi-Fluid Simulation with Peridynamics” and “Kinetic Simulation of Turbulent Multifluid Flows” in the revised manuscript (see Related Work). These papers are now discussed in the context of high-density-ratio and turbulent multifluid simulations, which complements our discussion on implicit mixing and viscoelastic modeling. The added references help clarify the position of our method relative to recent advances and emphasize that our framework can also handle large density and viscosity contrasts while maintaining consistent viscoelastic formulation.
+
+\vspace{0.5cm}
+\textbf{4.}	We have incorporated the recommended references into the revised Related Work section. Specifically, the peridynamic multi-fluid simulation method has been added to the Multiphase Fluid Simulation: Non-Mixing Regimes subsection, and the kinetic multifluid turbulence solver has been included in the Multiphase Fluid Simulation: Mixing Regimes subsection. These additions help position our contribution more clearly within the broader landscape of multiphase flow research.
+
+\vspace{1cm}
+\textbf{For Reviewer 3:}
+
+% \textbf{Comments regarding the introduction:}
+
+\reviewcomment{R3}{
+Comments regarding the introduction:
+- It’s good that the introduction makes the effort to establish the taxonomy of Newtonian vs. Non-Newtonian; Single-phase vs. Multi-phase; Miscible vs. Immiscible. However, it has not been made clear how exactly the proposed method fits into this landscape (see my questions/concerns below).
+- The proposed method is introduced as a “viscoelastic framework”. But shear-thinning as a rheological behavior is technically not viscoelastic, and yet the method seems to handle it. For clarity, it would help to more carefully carve out the subset of non-Newtonian behaviors that the method caters to.
+- Does this method also handle Newtonian fluid? The answer seems to be yes, based on what’s written in the Conclusion section, but I think it is important to establish this early on so that a reader understands the scope and generality of the paper from the get-go. When treating Newtonian fluid, does this method fall back to DFSPH?
+- I think it’s also worth clarifying that this method handles the miscible case with mixture model and the immiscible one with SPH. Both are "orthogonal" approaches and can hence be integrated to treat both miscible and immiscible types of multiphase fluid. Without that, the mentioning of SPH and mixture model feels uncalled for in the last paragraph. In particular, the second to last paragraph implies that the “centerpiece” of the method is the multi-mode conformation tensor, and yet in the last paragraph the focus shifts to SPH and mixture model instead, which can cause confusion. The last two paragraphs can be reworked to make it clear that the conformation tensor is for handling the non-Newtonian aspect, and SPH + mixture model together handles the multi-phase aspect.
+}
+\textbf{1.} In the revised manuscript, we have clarified the respective roles of the conformation tensor, SPH, and mixture model in the Introduction section. Specifically, the multi-mode conformation tensor governs the viscoelastic constitutive behavior and captures the non-Newtonian characteristics of the fluid. The mixture-model formulation is employed for miscible multiphase flows where phases share a continuous velocity field, while the SPH formulation is used for immiscible flows with distinct interfaces. These two formulations are now explicitly described as orthogonal components that can be seamlessly integrated within our unified framework. The revised paragraph makes it clear that the conformation tensor handles the rheological aspect, whereas SPH and the mixture model together address the multiphase aspect.
+
+\vspace{0.5cm}
+\textbf{2.} Our method provides a more general fluid simulation capability. It is capable of simulating single-phase and multi-phase Newtonian fluids, as well as single-phase and multi-phase shear-thinning non-Newtonian fluids. Moreover, when simulating a single-phase fluid, the method does not simply degenerate into DFSPH; instead, it becomes an extended DFSPH model augmented with a single conformation tensor. This formulation enables the simulation of highly viscoelastic fluids with greater accuracy and stability than the original DFSPH.
+
+\vspace{0.65cm}
+
+\reviewcomment{R3}{
+  Other comments regarding exposition:
+- I think the related work section is missing a significant body of text on the use of conformation tensor in fluid simulation in the past. Since the conformation tensor is a big part of the proposed method, I hope to understand very clearly what is novel and what is typical. Without an informative discussion on how the conformation tensor is typically used, it is hard to gauge the novelty of the proposed method.
+- Can it be made clearer how the implicit mixture model [43] departs from the mixture model [46]? It seems that the added benefit from the implicit mixture model is the derivation of parameter $C_d$, but it’s not clear to me in what way it is implicit.
+- At the bottom of page 4, I find the saying “However, it lacks elegance and tends to produce artifacts...” overly vague. I would be looking for further justifications, especially for why it lacks elegance.
+- “Consequently, directly applying the viscoelastic stress of each conformation to update the phase velocities can result in erroneous phase drift velocities” - can the authors further elucidate the cause of such errors?
+}
+	
+\textbf{1.} We have expanded the Related Work section to include classic uses of the conformation tensor in both CFD and computer graphics. In addition, we conclude the section with a concise summary that highlights the novelty of our approach.
+
+\vspace{0.5cm}
+\textbf{2.} Regarding [46]: The prior mixture model advances phase/mix fields with explicit drift relaxation toward a mixture velocity (often with WCSPH-style updates) and relies on per-step renormalization of volume fractions. 
+
+As for [43]: The “implicit mixture model” computes phase updates through the mixture’s implicit momentum solve (pressure/viscosity projection) and uses an analytic interphase source that blends no-drift and free-drift limits. The coefficient $C_d$ only weights this source; it is not what makes the method implicit.
+
+\vspace{0.2cm}
+$C_d \in [0,1]$ blends two physically meaningful limits:
+\begin{itemize}
+    \item $C_d = 0$ → free-drift (phases evolve without interphase locking)
+    \item $C_d = 1$ → no-drift (phases fully share the mixture velocity). This recovers prior models as special case.
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{3.} We have replaced the vague wording with a precise explanation. In the IMM-CT baseline, the two phases use heterogeneous constitutive routes for viscous stress—water adopts a Laplacian-based Newtonian model $\tau_w=\mu_w(\nabla v + \nabla v^T)$, while the polymer uses a (single-mode) conformation-tensor correction $\tau_p=\tau_p(A)$ — and the total viscous stress is then formed by a linear blend
+\begin{equation}
+    \tau = (1-\phi)\tau_w + \phi\tau_p
+\end{equation}
+with $\phi$ the polymer volume fraction. This construction is problematic for three concrete reasons:
+\begin{itemize}
+    \item Model inconsistency and non-commutativity: Blending stresses produced by two different constitutive/discretization paths is not equivalent to evaluating a single mixture constitutive law (e.g., an effective rheology $\tau=F(v,A,\phi)$). Unless the two models are affine-compatible, “compute” generally does not commute with “blend”, which can break thermodynamic/variational consistency and yield bias.
+    \item Interface-sensitivity and artifacts: The Laplacian route (diffusion-dominant) and the conformation route (advection-relaxation with SPD constraints) have different numerical Jacobians and stabilization. Their post-hoc linear combination can amplify discretization mismatch near large $\nabla\phi$ (interface), manifesting as spurious shear halos or dissipation spikes.
+    \item Limiting and conservation behavior: Under volume-fraction clipping/renormalization, a pure-phase limit $\phi$→0/1 may still retain a residual contribution from the other route (e.g., lagged conformation), unless an extra projection/reset is applied. This introduces small but systematic inconsistencies.
+\end{itemize}
+	
+Our method avoids this by using a single, unified rheological route (multi-mode conformation tensor) and consistent transport for all phases, so that mixture momentum is obtained implicitly and phase contributions are derived coherently. We have revised the text to reflect these specific points instead of using the vague phrase “lacks elegance.” 
+
+\vspace{0.5cm}
+\textbf{4.} The error arises from (i) a non-conservative force partition and (ii) an inconsistent coupling path when viscoelastic stresses are applied per phase rather than at the mixture level.
+
+\vspace{0.2cm}
+(i) Non-conservative force partition.
+
+Let $\tau_v({A^m})$ be the viscoelastic stress assembled from all conformation modes and $f_v=\nabla\cdot\tau_v$ the corresponding mixture-level force. If each phase k is updated with its own force $f_{v,k}$ , there is generally no guarantee that
+\begin{equation}
+    \sum_k f_{v,k}=f_v \text{  or  } \sum_k \alpha_kf_{v,k}=f_v,
+\end{equation}
+thus leaving a residual that acts as a spurious source in the relative-momentum equations and drives unphysical drift $W_k=v_k-v$.
+
+\vspace{0.2cm}
+(ii) Inconsistent coupling with the implicit projection.
+
+In our solver, pressure/viscosity are handled at the mixture level via an implicit momentum projection. Injecting viscoelastic forces per phase outside this projection decouples phase updates from the mixture solution (breaking mass–momentum consistency), which introduces extra work in the relative-velocity subspace and promotes drift, especially under strong contrasts.
+
+\vspace{0.15cm}
+We compute the viscoelastic force once at the mixture level and distribute it to phases via a locally conservative mapping satisfying
+\begin{equation}
+    \sum_k f_{v,k}=f_v \text{  ,  } \sum_k \alpha_k v_k=v,
+\end{equation}
+and we integrate this mapping within the same implicit projection pathway (together with the analytic interphase source weighted by $C_d$). This maintains $\sum_k \alpha_k = 1$, preserves mass–momentum consistency, and suppresses spurious phase drift.
+
+\vspace{0.65cm}
+\reviewcomment{R3}{
+  Comments regarding technical correctness:
+- Equation 9 seems to be evolving the volume fraction for each phase separately. With numerical drift, will this violate the “sum-to-one” constraint?
+- Is setting $C_d$ as a parameter ad-hoc or principled? It seems to me that the “degree of momentum exchange between the mixture and its phases” should have a lot to do with the viscosity parameter $\eta$. This makes me wonder if $C_d$ should actually be a free parameter or not.
+- I think one side effect for the solution in IV.C, i.e. “a simplified relationship that defines the combined influence of other conformations on the current conformation”, is that it compromises the conservation of momentum. Can the authors comment on this?
+  }
+
+\textbf{1.} Although Eq.~(9) updates each phase volume fraction $\alpha_k$ separately, all phases use the same face fluxes obtained from the implicitly projected mixture velocity (pressure/viscosity projection). Summing the transport equations over $k$ gives
+\[
+\partial_t\!\left(\sum_k \alpha_k\right) + \nabla\!\cdot\!\left( \mathbf{u}\,\sum_k \alpha_k \right)=0,
+\]
+so $\sum_k \alpha_k$ behaves as a passively advected quantity. If the initial condition satisfies $\sum_k \alpha_k = 1$, this value---being constant---is preserved, and thus the constraint $\sum_k \alpha_k = 1$ holds analytically.
+
+In the discrete particle update, the face flux contributions form a telescoping sum---interior fluxes cancel between neighboring faces---so the total $\sum_k \alpha_k$ is conserved discretely as well.
+
+
+In practice, tiny deviations can appear due to round-off and limiter clipping. We therefore apply a bounded, locally conservative correction after each step:
+\begin{equation}
+    \alpha_{k'} \leftarrow \frac{clip(\alpha_{k'},0,1)}{
+    \sum_kclip(\alpha_{k},0,1)
+    }   
+\end{equation}
+with a safe fallback if $\sum_kclip(\alpha_{k},0,1)=0$. Two aspects of the implicit scheme reduce drift in the first place: 
+
+(i) phase advection uses consistent transport (the same fluxes used to update mixture density/momentum), and 
+
+(ii) phase velocities are mapped from the mixture’s implicit momentum solve rather than pushed by explicit drift relaxation. Together, these keep $\sum_k \alpha_k = 1$ to machine precision while maintaining mass–momentum consistency.
+
+\reviewcomment{R3}{
+  Comments regarding experiments and validation:
+- I think section V could benefit from a parameter study for $C_d$ and $C_f$, which appears to be currently missing.
+- What is the difference between “influence factor” and “impact factor” in Fig. 9 and 10?
+- How do the experiments support the claims that the method achieves “superior accuracy”? Is this verified beyond visual and qualitative evidence?
+- The paper claims that stability is “ensured”. I believe some proof or analyses beyond experimental results could go a long way in establishing this rigorously.
+  }
+
+\vspace{0.5cm}
+\textbf{2.} In our model, $C_d$ is not an ad-hoc parameter but follows the definition from the implicit mixture model, where it serves as a global control factor that regulates the baseline strength of inter-phase drift under inviscid conditions. The viscosity-related effects, as the reviewer correctly pointed out, indeed influence the momentum exchange, but these effects are handled separately through the Impact Function proposed in Section - Impact Functions.
+
+The Impact Function acts as a secondary modulation that adjusts the drift intensity locally according to the viscous characteristics (e.g., through $\eta$ or local strain rates). Therefore, $C_d$ and $\eta$ play complementary roles: $C_d$ governs the global coupling strength between phases, while $\eta$ contributes to the local viscous modulation. We have clarified this distinction in the revised manuscript.
+
+\vspace{0.5cm}
+\textbf{3.} It was a typographical error — both terms refer to the same concept. In our formulation, we only define the Impact Function and its corresponding Impact Factor as described in Section - Impact Functions.
+We have corrected the figure captions and text to consistently use “Impact Factor” throughout the manuscript (see Figs.\ 9 and 10 in the revised version).
+	
+\vspace{0.5cm}
+\textbf{4.} We agree that the term “superior accuracy” was too strong given that our evaluations in the original submission were primarily visual. In the revised manuscript, we have clarified that our improvement mainly lies in numerical consistency and conservation behavior rather than absolute accuracy with respect to ground truth.
+% To substantiate this, we added a quantitative comparison with the most relevant prior method, IMM-CT, focusing on momentum–mass conservation during two-phase mixing. The results show that our solver achieves 0.3% normalized momentum deviation after 500 simulation steps, whereas IMM-CT exhibits 0.8%, respectively. This demonstrates that our method preserves the physical consistency of the mixture more effectively under high-viscosity conditions.
+
+Correspondingly, we have replaced the phrase “superior accuracy” with “improved momentum–mass consistency and numerical stability” in the Abstract and Conclusion.
+
+
+\reviewcomment{R3}{
+  Comments regarding supplemental video:
+- I find the quality of the supplemental video to be overall sub-par. For instance, at 0:05:39, the text on the top left is barely legible. The low resolution also hinders one in assessing the quality of the simulations.
+}
+
+We have re-uploaded higher-resolution videos and added the section on quantitative experiments.
+
+\end{document}

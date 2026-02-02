@@ -1,0 +1,13 @@
+% contents/bib.tex —— thebibliography（手工录入参考文献）
+
+\phantomsection
+\chapter*{参考文献}
+\addcontentsline{toc}{chapter}{参考文献}
+
+\begin{thebibliography}{99}
+	% 参考文献采用 GB/T 7714—2015 著录格式（手工录入）。
+	% 正文使用 \cite{key} 进行引用。
+
+	% 为便于全量维护与去重，本工程将 bibitem 列表抽取到单独文件。
+	\input{contents/bibitems_generated.tex}
+\end{thebibliography}
