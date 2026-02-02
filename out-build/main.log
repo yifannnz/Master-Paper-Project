@@ -1,10 +1,10 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2026.2.1)  2 FEB 2026 23:54
+This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2026.2.1)  3 FEB 2026 00:17
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**c:/Users/19609/Desktop/毕设/LatexProject/main
-(c:/Users/19609/Desktop/毕设/LatexProject/main.tex
+**c:/Users/19609/Downloads/Master-Paper-Project/main
+(c:/Users/19609/Downloads/Master-Paper-Project/main.tex
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
 (./ustbthesis.cls
@@ -1254,11 +1254,11 @@ Package rerunfilecheck Info: File `main.out' has not changed.
  ) 
 Here is how much of TeX's memory you used:
  22837 strings out of 473832
- 491032 string characters out of 5733159
- 917231 words of memory out of 5000000
+ 491053 string characters out of 5733159
+ 917250 words of memory out of 5000000
  45486 multiletter control sequences out of 15000+600000
  570767 words of font info for 134 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 107i,13n,125p,1232b,693s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 107i,13n,125p,1239b,693s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
 Output written on out-build/main.pdf (53 pages).
