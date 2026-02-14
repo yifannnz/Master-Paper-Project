@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2026.2.1)  13 FEB 2026 00:15
+This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2026.2.1)  15 FEB 2026 01:45
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1107,44 +1107,57 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 [7]
+File: images/chap2/1.png Graphic file (type bmp)
+<images/chap2/1.png>
+
+Underfull \vbox (badness 7030) has occurred while \output is active []
+
+
 
 [8]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[9]) (./contents/chap3-质量提升.tex
+[9]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
 
 [10]
+Underfull \vbox (badness 3872) has occurred while \output is active []
+
+
+
+[11]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[12]
+File: images/chap2/unet.png Graphic file (type bmp)
+<images/chap2/unet.png>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[13]) (./contents/chap3-质量提升.tex
+
+[14]
 \bfseries 3
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[11
+[15
 
 ]) (./contents/chap4-分割.tex
 
-[12]
+[16]
 \bfseries 4
 ) (./contents/chap5-系统.tex
-
-[13
-
-]
-
-[14
-
-]
-\bfseries 5
-)
-
-[15]
-
-[16
-
-] (./contents/bib.tex
 
 [17
 
@@ -1152,11 +1165,41 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [18
 
-] (./contents/bibitems_generated.tex))
+]
+\bfseries 5
+)
 
 [19]
 
 [20
+
+] (./contents/bib.tex
+
+[21
+
+]
+
+[22
+
+] (./contents/bibitems_generated.tex
+Underfull \hbox (badness 2042) in paragraph at lines 26--27
+[]\TU/TimesNewRoman(0)/m/n/12.045 LECUN Y, BENGIO Y, HINTON G. Deep learning[J]. Nature, 2015,
+ []
+
+
+
+[23]
+
+[24]
+Underfull \hbox (badness 1394) in paragraph at lines 68--69
+\TU/TimesNewRoman(0)/m/n/12.045 DeblurGAN: Blind motion deblurring using conditional adversarial net-
+ []
+
+))
+
+[25]
+
+[26
 
 ] (./contents/appendix.tex
 附录 A
@@ -1172,18 +1215,18 @@ Overfull \hbox (2.0014pt too wide) in paragraph at lines 56--76
 
 )
 
-[21
+[27
 
 ]
 
-[22] (./contents/thanks.tex)
+[28] (./contents/thanks.tex)
 
-[23
+[29
 
 
 ]
 
-[24
+[30
 
 ] (./contents/mresume.tex
 Overfull \hbox (2.0075pt too wide) in paragraph at lines 8--17
@@ -1195,26 +1238,26 @@ Underfull \vbox (badness 2073) has occurred while \output is active []
 
 
 
-[25
+[31
 
 ])
 
-[26]
+[32]
 
-[27
+[33
 
-
-]
-
-[28
 
 ]
 
-[29
+[34
 
 ]
 
-[30
+[35
+
+]
+
+[36
 
 ] (./contents/dataset.tex)
 Underfull \hbox (badness 10000) in paragraph at lines 3--109
@@ -1223,7 +1266,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 3--109
 
 
 
-[31
+[37
 
 ] (out-build/main.aux)
  ***********
@@ -1239,15 +1282,15 @@ LaTeX Font Warning: Size substitutions with differences
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 061CA4E838B0623ECE2BAA7676C64931;6779.
+(rerunfilecheck)             Checksum: 36A7FA33CE4602784FC313AAE8568049;6788.
  ) 
 Here is how much of TeX's memory you used:
- 22784 strings out of 473832
- 490396 string characters out of 5733159
- 920346 words of memory out of 5000000
- 45428 multiletter control sequences out of 15000+600000
+ 22821 strings out of 473832
+ 491152 string characters out of 5733159
+ 926081 words of memory out of 5000000
+ 45463 multiletter control sequences out of 15000+600000
  570767 words of font info for 134 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 107i,13n,125p,1402b,619s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 107i,13n,125p,1527b,619s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on out-build/main.pdf (49 pages).
+Output written on out-build/main.pdf (55 pages).
