@@ -4,6 +4,7 @@
 \documentclass{ustbthesis}
 
 \usepackage{tabularx}
+\usepackage{makecell}
 \usepackage{amsmath}
 \usepackage{subfig} % 去掉caption相关选项，避免与类冲突
 \usepackage{float} % 用于支持严格图片定位参数[H]
@@ -24,8 +25,8 @@
 \EnglishTitle{Research on Quality Enhancement and Segmentation Algorithms for Atomic-scale Nanoscale Images}
 \Subtitle{}
 \EnglishSubtitle{}
-\Date{2026年 1月 1日}
-\EnglishDate{January, 2026}
+\Date{2026年05月30日}
+\EnglishDate{May 30, 2026}
 \College{智能科学与技术学院}
 \EnglishCollege{School of Intelligent Science and Technology}
 \Address{海淀区学院路30号}
@@ -42,8 +43,8 @@
 \EnglishMajor{Computer Technology}
 \Direction{计算机视觉}
 \EnglishDirection{Computer Vision}
-\Supervisor{XX}
-\EnglishSupervisor{XX}
+\Supervisor{姚超}
+\EnglishSupervisor{Yao Chao}
 \DegreeType{专业型}
 \EnglishDegreeType{Professional}
 \CLCNumber{}
@@ -51,11 +52,14 @@
 \UniversityCode{10008}
 \UniversityLogoFile{images/ustb.png}
 \SecurityLevel{公开}
-\SubmissionDate{2026年 1月 1日}
-\EnglishSubmissionDate{January, 2026}
+\SubmissionDate{2026年05月30日}
+\EnglishSubmissionDate{May 30, 2026}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%封面信息%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{document}
+
+% 不再强制奇数页开新章/插入空白页（去掉 PDF 中的空白页）
+\let\cleardoublepage\clearpage
 
 \TitlePage
 \SecondPage
