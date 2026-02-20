@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2026.2.1)  19 FEB 2026 19:29
+This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2026.2.1)  21 FEB 2026 00:49
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1189,14 +1189,8 @@ Underfull \vbox (badness 4316) has occurred while \output is active []
 
 
 [21]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
 
 [22]
-Underfull \vbox (badness 5091) has occurred while \output is active []
-
-
 
 [23]
 Underfull \vbox (badness 7030) has occurred while \output is active []
@@ -1205,23 +1199,69 @@ Underfull \vbox (badness 7030) has occurred while \output is active []
 
 [24]
 
-[25]) (./contents/chap4-分割.tex
+[25]
 
 [26]
+File: images/chap3/数据集.png Graphic file (type bmp)
+<images/chap3/数据集.png>
+
+
+[27]
+File: images/chap3/标注.png Graphic file (type bmp)
+<images/chap3/标注.png>
+
+
+[28]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[29]
+
+[30]
+
+[31]
+File: images/chap3/结果图1.png Graphic file (type bmp)
+<images/chap3/结果图1.png>
+
+
+[32]
+File: images/chap3/结果图2.png Graphic file (type bmp)
+<images/chap3/结果图2.png>
+
+
+[33]
+File: images/chap3/结果图3.png Graphic file (type bmp)
+<images/chap3/结果图3.png>
+
+
+[34]
+File: images/chap3/结果图4.png Graphic file (type bmp)
+<images/chap3/结果图4.png>
+
+
+[35]
+File: images/chap3/结果图5.png Graphic file (type bmp)
+<images/chap3/结果图5.png>
+
+
+[36]) (./contents/chap4-分割.tex
+
+[37]
 \bfseries 4
 ) (./contents/chap5-系统.tex
 
-[27
+[38
 
 ]
 \bfseries 5
 )
 
-[28
+[39
 
 ] (./contents/bib.tex
 
-[29
+[40
 
 
 ] (./contents/bibitems_generated.tex
@@ -1231,33 +1271,33 @@ Underfull \hbox (badness 2042) in paragraph at lines 26--27
 
 
 
-[30
+[41
 
 ]
 
-[31]
+[42]
 Underfull \hbox (badness 1394) in paragraph at lines 68--69
 \TU/TimesNewRoman(0)/m/n/12.045 DeblurGAN: Blind motion deblurring using conditional adversarial net-
  []
 
 
 
-[32]
+[43]
 Underfull \hbox (badness 1199) in paragraph at lines 92--93
 []\TU/TimesNewRoman(0)/m/n/12.045 GALINDO P L, KRET S, SANCHEZ A M, LAVAL J Y, YANEZ A,
  []
 
 
 
-[33]
+[44]
 
-[34]
+[45]
 
-[35]
+[46]
 
-[36]))
+[47]))
 
-[37] (./contents/appendix.tex
+[48] (./contents/appendix.tex
 附录 A
 
 Overfull \hbox (2.00749pt too wide) in paragraph at lines 38--51
@@ -1271,14 +1311,14 @@ Overfull \hbox (2.0014pt too wide) in paragraph at lines 56--76
 
 )
 
-[38
+[49
 
 
 ]
 
-[39] (./contents/thanks.tex)
+[50] (./contents/thanks.tex)
 
-[40
+[51
 
 
 ] (./contents/mresume.tex
@@ -1291,19 +1331,19 @@ Underfull \vbox (badness 2073) has occurred while \output is active []
 
 
 
-[41
+[52
 
 
 ])
 
-[42]
+[53]
 
-[43
+[54
 
 
 ]
 
-[44
+[55
 
 
 ] (./contents/dataset.tex)
@@ -1313,7 +1353,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 3--115
 
 
 
-[45
+[56
 
 
 ] (out-build/main.aux)
@@ -1326,15 +1366,15 @@ L3 programming layer <2022/08/05>
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: B514F669BE8E7C7BF4561EB205C5894E;6699.
+(rerunfilecheck)             Checksum: 12BA7E6AAF29541C9790C03FD4C1D7B6;6627.
  ) 
 Here is how much of TeX's memory you used:
- 23576 strings out of 473832
- 503515 string characters out of 5733159
- 954555 words of memory out of 5000000
- 46189 multiletter control sequences out of 15000+600000
- 575110 words of font info for 155 fonts, out of 8000000 for 9000
+ 23617 strings out of 473832
+ 502993 string characters out of 5733159
+ 955026 words of memory out of 5000000
+ 46222 multiletter control sequences out of 15000+600000
+ 575118 words of font info for 156 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 107i,19n,125p,1237b,619s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 107i,20n,125p,1237b,619s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on out-build/main.pdf (55 pages).
+Output written on out-build/main.pdf (66 pages).

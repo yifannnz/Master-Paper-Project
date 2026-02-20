@@ -23,30 +23,30 @@
 \contentsline {subsection}{\numberline {3.2.1}空间频域联合特征提取的生成网络设计}{22}{subsection.3.2.1}%
 \contentsline {subsection}{\numberline {3.2.2}基于自注意力机制的全局原子结构一致性建模}{24}{subsection.3.2.2}%
 \contentsline {subsection}{\numberline {3.2.3}基于特征函数与频域一致性的结构保持约束设计}{25}{subsection.3.2.3}%
-\contentsline {section}{\numberline {3.3}算法性能验证与实验结果分析}{26}{section.3.3}%
-\contentsline {subsection}{\numberline {3.3.1}实验数据（数据集介绍）}{26}{subsection.3.3.1}%
-\contentsline {subsection}{\numberline {3.3.2}实验设置与评价指标}{26}{subsection.3.3.2}%
-\contentsline {subsection}{\numberline {3.3.3}实验结果与分析（定性、定量）}{26}{subsection.3.3.3}%
-\contentsline {section}{\numberline {3.4}本章小结}{26}{section.3.4}%
-\contentsline {chapter}{\numberline {\bfseries 4\hspace {.3em}}文献综述}{27}{chapter.4}%
-\contentsline {section}{\numberline {4.1}图像质量提升算法概述}{27}{section.4.1}%
-\contentsline {subsection}{\numberline {4.1.1}传统方法}{27}{subsection.4.1.1}%
-\contentsline {section}{\numberline {4.2}论文组织结构}{27}{section.4.2}%
-\contentsline {chapter}{\numberline {\bfseries 5\hspace {.3em}}高分辨TEM图像自动表征系统}{28}{chapter.5}%
-\contentsline {section}{\numberline {5.1}需求分析与系统功能设计}{28}{section.5.1}%
-\contentsline {subsection}{\numberline {5.1.1}自动化原子位置识别与处理模块}{28}{subsection.5.1.1}%
-\contentsline {subsection}{\numberline {5.1.2}原子细粒度信息动态提取模块}{28}{subsection.5.1.2}%
-\contentsline {section}{\numberline {5.2}总体架构设计}{28}{section.5.2}%
-\contentsline {section}{\numberline {5.3}详细设计与实现}{28}{section.5.3}%
-\contentsline {subsection}{\numberline {5.3.1}系统技术选型}{28}{subsection.5.3.1}%
-\contentsline {subsection}{\numberline {5.3.2}自动化原子位置识别与处理模块实现}{28}{subsection.5.3.2}%
-\contentsline {subsection}{\numberline {5.3.3}原子细粒度信息动态提取模块实现}{28}{subsection.5.3.3}%
-\contentsline {section}{\numberline {5.4}本章小结}{28}{section.5.4}%
-\contentsline {chapter}{参考文献}{29}{chapter*.18}%
-\contentsline {chapter}{\numberline {附录 A\hspace {.3em}}单位}{38}{appendix.A}%
-\contentsline {chapter}{致谢}{40}{appendix*.22}%
-\contentsline {chapter}{作者简历及在学研究成果}{41}{appendix*.23}%
-\contentsline {chapter}{独创性说明}{43}{appendix*.24}%
-\contentsline {chapter}{关于论文使用授权的说明}{44}{appendix*.25}%
-\contentsline {chapter}{学位论文数据集}{45}{appendix*.26}%
+\contentsline {section}{\numberline {3.3}算法性能验证与实验结果分析}{27}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}实验数据来源及描述}{27}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.3.2}实验设置与评价指标}{29}{subsection.3.3.2}%
+\contentsline {subsection}{\numberline {3.3.3}实验结果与分析}{31}{subsection.3.3.3}%
+\contentsline {section}{\numberline {3.4}本章小结}{37}{section.3.4}%
+\contentsline {chapter}{\numberline {\bfseries 4\hspace {.3em}}文献综述}{38}{chapter.4}%
+\contentsline {section}{\numberline {4.1}图像质量提升算法概述}{38}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}传统方法}{38}{subsection.4.1.1}%
+\contentsline {section}{\numberline {4.2}论文组织结构}{38}{section.4.2}%
+\contentsline {chapter}{\numberline {\bfseries 5\hspace {.3em}}高分辨TEM图像自动表征系统}{39}{chapter.5}%
+\contentsline {section}{\numberline {5.1}需求分析与系统功能设计}{39}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}自动化原子位置识别与处理模块}{39}{subsection.5.1.1}%
+\contentsline {subsection}{\numberline {5.1.2}原子细粒度信息动态提取模块}{39}{subsection.5.1.2}%
+\contentsline {section}{\numberline {5.2}总体架构设计}{39}{section.5.2}%
+\contentsline {section}{\numberline {5.3}详细设计与实现}{39}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}系统技术选型}{39}{subsection.5.3.1}%
+\contentsline {subsection}{\numberline {5.3.2}自动化原子位置识别与处理模块实现}{39}{subsection.5.3.2}%
+\contentsline {subsection}{\numberline {5.3.3}原子细粒度信息动态提取模块实现}{39}{subsection.5.3.3}%
+\contentsline {section}{\numberline {5.4}本章小结}{39}{section.5.4}%
+\contentsline {chapter}{参考文献}{40}{chapter*.27}%
+\contentsline {chapter}{\numberline {附录 A\hspace {.3em}}单位}{49}{appendix.A}%
+\contentsline {chapter}{致谢}{51}{appendix*.31}%
+\contentsline {chapter}{作者简历及在学研究成果}{52}{appendix*.32}%
+\contentsline {chapter}{独创性说明}{54}{appendix*.33}%
+\contentsline {chapter}{关于论文使用授权的说明}{55}{appendix*.34}%
+\contentsline {chapter}{学位论文数据集}{56}{appendix*.35}%
 \contentsfinish 
