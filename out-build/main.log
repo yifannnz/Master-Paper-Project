@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2026.2.1)  22 FEB 2026 02:08
+This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2026.2.1)  28 FEB 2026 00:15
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -804,8 +804,7 @@ Package hyperref Info: Option `colorlinks' set `true' on input line 21.
 \symCJKmath=\mathgroup255
 LaTeX Font Info:    Overwriting symbol font `CJKmath' in version `bold'
 (Font)                  TU/SimSun(1)/m/n --> TU/SimSun(1)/b/n on input line 61.
-
-No file main.aux.
+ (out-build/main.aux)
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 61.
@@ -886,11 +885,10 @@ LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
 (Font)                  OT1/cmtt/m/n --> TU/lmtt/b/n on input line 61.
 Package hyperref Info: Link coloring ON on input line 61.
+ (out-build/main.out) (out-build/main.out)
 \@outlinefile=\write3
 \openout3 = `main.out'.
 
-
-Package hyperref Warning: Rerun to get /PageLabels entry.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: xetex
@@ -1042,57 +1040,31 @@ LaTeX Font Warning: Font shape `TU/SimHei(0)/b/n' undefined
 
 
 
-]
-No file main.toc.
+] (out-build/main.toc
+
+[4
+
+
+])
 \tf@toc=\write4
 \openout4 = `main.toc'.
 
 
 
-[4
+[5] (./contents/list.tex)
 
-
-] (./contents/list.tex)
-
-[5
+[6
 
 
 
 ] (./contents/list-sym.tex)
 
-[6
+[7
 
 
 ] (./contents/chap1-引言.tex
 \bfseries 1
 Package newfloat Info: Setting Plan B file extension to `lof'... on input line 1.
-
-LaTeX Warning: Citation `ramakrishna2019materials' on page 1 undefined on input line 6.
-
-
-LaTeX Warning: Reference `fig:1' on page 1 undefined on input line 6.
-
-
-LaTeX Warning: Citation `butler2018machine' on page 1 undefined on input line 6.
-
-
-LaTeX Warning: Citation `liu2024site' on page 1 undefined on input line 6.
-
-
-LaTeX Warning: Citation `banhart2011structural' on page 1 undefined on input line 6.
-
-
-LaTeX Warning: Citation `ziatdinov2017deep' on page 1 undefined on input line 6.
-
-
-LaTeX Warning: Citation `ziletti2018insightful' on page 1 undefined on input line 6.
-
-
-LaTeX Warning: Citation `tilley2020crystals' on page 1 undefined on input line 6.
-
-
-LaTeX Warning: Citation `muller2009structure' on page 1 undefined on input line 6.
-
 File: images/chap1/1.png Graphic file (type bmp)
 <images/chap1/1.png>
 Package hyperref Info: bookmark level for unknown figureEng defaults to 0 on input line 11.
@@ -1102,18 +1074,11 @@ Package hyperref Info: bookmark level for unknown figureEng defaults to 0 on inp
 
 
 ]
-
-LaTeX Warning: Citation `lecun2015deep' on page 2 undefined on input line 17.
-
-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
 [2]
-
-LaTeX Warning: Reference `fig:2' on page 3 undefined on input line 32.
-
 File: images/chap1/2.png Graphic file (type bmp)
 <images/chap1/2.png>
 
@@ -1122,9 +1087,6 @@ Underfull \vbox (badness 2837) has occurred while \output is active []
 
 
 [3]
-
-LaTeX Warning: Reference `fig:3' on page 4 undefined on input line 48.
-
 File: images/chap1/3.png Graphic file (type bmp)
 <images/chap1/3.png>
 
@@ -1137,15 +1099,6 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 [5]
 \bfseries 2
 
-LaTeX Warning: Citation `du2015nonlinear' on page 6 undefined on input line 9.
-
-
-LaTeX Warning: Citation `dabov2007image' on page 6 undefined on input line 11.
-
-
-LaTeX Warning: Citation `mevenkamp2015poisson' on page 6 undefined on input line 11.
-
-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -1153,258 +1106,46 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 [6
 
 ]
-
-LaTeX Warning: Citation `kilaas1998optimal' on page 7 undefined on input line 13.
-
-
-LaTeX Warning: Citation `lobato2024deep' on page 7 undefined on input line 16.
-
-
-LaTeX Warning: Citation `kazimi2024self' on page 7 undefined on input line 16.
-
-
-LaTeX Warning: Citation `mohan2022deep' on page 7 undefined on input line 16.
-
-
-LaTeX Warning: Citation `lin2021temimagenet' on page 7 undefined on input line 18.
-
-
-LaTeX Warning: Citation `ronneberger2015u' on page 7 undefined on input line 18.
-
 File: images/chap2/1.png Graphic file (type bmp)
 <images/chap2/1.png>
-
-LaTeX Warning: Citation `mohan2022deep' on page 7 undefined on input line 27.
-
-
-LaTeX Warning: Reference `fig:2-1' on page 7 undefined on input line 27.
-
-
-LaTeX Warning: Citation `crozier2025visualizing' on page 7 undefined on input line 29.
-
-
-LaTeX Warning: Reference `fig:2-1' on page 7 undefined on input line 29.
-
 
 Underfull \vbox (badness 7030) has occurred while \output is active []
 
 
 
 [7]
-
-LaTeX Warning: Citation `he2025efficient' on page 8 undefined on input line 31.
-
-
-LaTeX Warning: Reference `fig:2-1' on page 8 undefined on input line 31.
-
-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
 [8]
-
-LaTeX Warning: Citation `goodfellow2014generative' on page 9 undefined on input line 36.
-
-
-LaTeX Warning: Citation `ledig2017photo' on page 9 undefined on input line 38.
-
-
-LaTeX Warning: Citation `kupyn2018deblurgan' on page 9 undefined on input line 38.
-
-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
 [9]
-
-LaTeX Warning: Citation `zhu2017unpaired' on page 10 undefined on input line 40.
-
-
-LaTeX Warning: Citation `杨晖2006图像分割的阈值法研究' on page 10 undefined on input line 46.
-
-
-LaTeX Warning: Citation `tremeau1997region' on page 10 undefined on input line 46.
-
-
-LaTeX Warning: Citation `段瑞玲2005图像边缘检测方法研究综述' on page 10 undefined on input line 46.
-
-
-LaTeX Warning: Citation `felzenszwalb2004efficient' on page 10 undefined on input line 46.
-
-
-LaTeX Warning: Citation `dhanachandra2015image' on page 10 undefined on input line 46.
-
-
-LaTeX Warning: Citation `vincent1991watersheds' on page 10 undefined on input line 46.
-
-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
 [10]
 
-LaTeX Warning: Citation `galindo2007peak' on page 11 undefined on input line 48.
-
-
-LaTeX Warning: Citation `zhang2016subset' on page 11 undefined on input line 48.
-
-
-LaTeX Warning: Citation `wen2018quantitative' on page 11 undefined on input line 48.
-
-
-LaTeX Warning: Citation `zhang2018multiple' on page 11 undefined on input line 48.
-
-
-LaTeX Warning: Citation `nord2017atomap' on page 11 undefined on input line 50.
-
-
-LaTeX Warning: Citation `zhang2019calatom' on page 11 undefined on input line 50.
-
-
-
 [11]
-
-LaTeX Warning: Citation `李梦怡2021基于全卷积网络的图像语义分割方法综述' on page 12 undefined on input line 55.
-
-
-LaTeX Warning: Citation `lecun2002gradient' on page 12 undefined on input line 57.
-
-
-LaTeX Warning: Citation `krizhevsky2012imagenet' on page 12 undefined on input line 57.
-
-
-LaTeX Warning: Citation `simonyan2014very' on page 12 undefined on input line 57.
-
-
-LaTeX Warning: Citation `szegedy2015going' on page 12 undefined on input line 57.
-
-
-LaTeX Warning: Citation `he2016deep' on page 12 undefined on input line 57.
-
-
-LaTeX Warning: Citation `huang2017densely' on page 12 undefined on input line 57.
-
-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
 [12]
-
-LaTeX Warning: Citation `long2015fully' on page 13 undefined on input line 59.
-
-
-LaTeX Warning: Citation `ronneberger2015u' on page 13 undefined on input line 59.
-
-
-LaTeX Warning: Reference `fig:unet' on page 13 undefined on input line 59.
-
-
-LaTeX Warning: Citation `milletari2016v' on page 13 undefined on input line 59.
-
-
-LaTeX Warning: Citation `oktay2018attention' on page 13 undefined on input line 59.
-
-
-LaTeX Warning: Citation `chen2017deeplab' on page 13 undefined on input line 59.
-
 File: images/chap2/unet.png Graphic file (type bmp)
 <images/chap2/unet.png>
 
-LaTeX Warning: Citation `vaswani2017attention' on page 13 undefined on input line 68.
-
-
-LaTeX Warning: Citation `dosovitskiy2020image' on page 13 undefined on input line 68.
-
-
-LaTeX Warning: Citation `strudel2021segmenter' on page 13 undefined on input line 68.
-
-
-LaTeX Warning: Citation `cao2022swin' on page 13 undefined on input line 68.
-
-
-LaTeX Warning: Citation `chen2021transunet' on page 13 undefined on input line 68.
-
-
 
 [13]
-
-LaTeX Warning: Reference `tab:dl_stem_summary' on page 14 undefined on input line 71.
-
 Package hyperref Info: bookmark level for unknown tableEng defaults to 0 on input line 78.
-
-LaTeX Warning: Citation `maksov2019deep' on page 14 undefined on input line 118.
-
-
-LaTeX Warning: Citation `eliasson2024localization' on page 14 undefined on input line 118.
-
-
-LaTeX Warning: Citation `yang2024full' on page 14 undefined on input line 118.
-
-
-LaTeX Warning: Citation `zhu2023deep' on page 14 undefined on input line 118.
-
-
-LaTeX Warning: Citation `kamiuchi2018self' on page 14 undefined on input line 118.
-
-
-LaTeX Warning: Citation `lin2021temimagenet' on page 14 undefined on input line 118.
-
 
 Overfull \hbox (4.92747pt too wide) in paragraph at lines 118--118
  []|\TU/TimesNewRoman(0)/m/n/7.52812 STEM/STM| 
  []
-
-
-LaTeX Warning: Citation `ziatdinov2022atomai' on page 14 undefined on input line 118.
-
-
-LaTeX Warning: Citation `chu2024accurate' on page 14 undefined on input line 118.
-
-
-LaTeX Warning: Citation `yang2021deep' on page 14 undefined on input line 118.
-
-
-LaTeX Warning: Citation `madsen2018deep' on page 14 undefined on input line 118.
-
-
-LaTeX Warning: Citation `maxim2021tracking' on page 14 undefined on input line 118.
-
-
-LaTeX Warning: Citation `mitchell2022automated' on page 14 undefined on input line 118.
-
-
-LaTeX Warning: Citation `zhao2023imaging' on page 14 undefined on input line 118.
-
-
-LaTeX Warning: Citation `ni2023quantifying' on page 14 undefined on input line 118.
-
-
-LaTeX Warning: Citation `zhang2024phase' on page 14 undefined on input line 118.
-
-
-LaTeX Warning: Citation `ziatdinov2017deep' on page 14 undefined on input line 118.
-
-
-LaTeX Warning: Citation `li2024single' on page 14 undefined on input line 118.
-
-
-LaTeX Warning: Citation `chen2023small' on page 14 undefined on input line 118.
-
-
-LaTeX Warning: Citation `cheng2023atomgan' on page 14 undefined on input line 118.
-
-
-LaTeX Warning: Citation `xu2025dynamic' on page 14 undefined on input line 118.
-
-
-LaTeX Warning: Citation `choudhary2023atomvision' on page 14 undefined on input line 118.
-
-
-LaTeX Warning: Citation `ziatdinov2022atomai' on page 14 undefined on input line 121.
 
 
 
@@ -1413,63 +1154,313 @@ File: images/chap2/CNN.png Graphic file (type bmp)
 <images/chap2/CNN.png>
 
 
-LaTeX Warning: Citation `ziatdinov2017deep' on page 15 undefined on input line 126.
-
-
-LaTeX Warning: Citation `chu2024accurate' on page 15 undefined on input line 126.
-
-
-LaTeX Warning: Citation `ziatdinov2017deep' on page 15 undefined on input line 126.
-
-
-LaTeX Warning: Citation `chu2024accurate' on page 15 undefined on input line 126.
-
-
-LaTeX Warning: Citation `ziatdinov2017deep' on page 15 undefined on input line 126.
-
-
-LaTeX Warning: Citation `chu2024accurate' on page 15 undefined on input line 126.
-
-
-LaTeX Warning: Citation `ziatdinov2017deep' on page 15 undefined on input line 126.
-
-
-LaTeX Warning: Citation `chu2024accurate' on page 15 undefined on input line 126.
-
-
-LaTeX Warning: Reference `fig:CNN' on page 15 undefined on input line 130.
-
-
-LaTeX Warning: Citation `ziatdinov2017deep' on page 15 undefined on input line 130.
-
-
-LaTeX Warning: Reference `fig:CNN' on page 15 undefined on input line 130.
-
-
-LaTeX Warning: Citation `chu2024accurate' on page 15 undefined on input line 130.
-
-
-
 [15]
-
-LaTeX Warning: Reference `fig:GAN' on page 16 undefined on input line 132.
-
-
-LaTeX Warning: Citation `li2024single' on page 16 undefined on input line 132.
-
 File: images/chap2/GAN.png Graphic file (type bmp)
 <images/chap2/GAN.png>
 
-LaTeX Warning: Citation `li2024single' on page 16 undefined on input line 137.
+
+[16]
+File: images/chap2/AP-GAN.png Graphic file (type bmp)
+<images/chap2/AP-GAN.png>
+) (./contents/chap3-质量提升.tex
+
+[17]
+
+[18]
+\bfseries 3
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
-LaTeX Warning: Citation `li2024single' on page 16 undefined on input line 137.
+
+[19
+
+]
+File: images/chap3/流程图.png Graphic file (type bmp)
+<images/chap3/流程图.png>
 
 
-LaTeX Warning: Citation `li2024single' on page 16 undefined on input line 137.
+[20]
+File: images/chap3/方法图.png Graphic file (type bmp)
+<images/chap3/方法图.png>
+
+Underfull \vbox (badness 4316) has occurred while \output is active []
 
 
-LaTeX Warning: Citation `li2024single' on page 16 undefined on input line 137.
+
+[21]
+
+[22]
+
+[23]
+Underfull \vbox (badness 7030) has occurred while \output is active []
 
 
-LaTeX Warning: Reference `fig:AP-GAN' on page 16 und
+
+[24]
+
+[25]
+
+[26]
+File: images/chap3/数据集.png Graphic file (type bmp)
+<images/chap3/数据集.png>
+
+
+[27]
+File: images/chap3/标注.png Graphic file (type bmp)
+<images/chap3/标注.png>
+
+
+[28]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[29]
+
+[30]
+
+[31]
+File: images/chap3/结果图1.png Graphic file (type bmp)
+<images/chap3/结果图1.png>
+
+
+[32]
+File: images/chap3/结果图2.png Graphic file (type bmp)
+<images/chap3/结果图2.png>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[33]
+File: images/chap3/结果图3.png Graphic file (type bmp)
+<images/chap3/结果图3.png>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[34]
+File: images/chap3/结果图4.png Graphic file (type bmp)
+<images/chap3/结果图4.png>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[35]
+File: images/chap3/结果图5.png Graphic file (type bmp)
+<images/chap3/结果图5.png>
+
+
+[36]) (./contents/chap4-分割.tex
+
+[37]
+\bfseries 4
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[38
+
+]
+File: images/chap4/方法流程图.png Graphic file (type bmp)
+<images/chap4/方法流程图.png>
+
+Underfull \vbox (badness 7030) has occurred while \output is active []
+
+
+
+[39]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[40]
+File: images/chap4/方法细节图.png Graphic file (type bmp)
+<images/chap4/方法细节图.png>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[41]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[42]
+Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on input line 49.
+
+Underfull \hbox (badness 10000) in paragraph at lines 52--53
+[] []\TU/SimSun(2)/m/n/12.045 真 实 样 本 $\OML/cmm/m/it/12.045 real[]A; real[]B$\TU/SimSun(2)/m/n/12.045 ，|  生 成 图 像 $\OML/cmm/m/it/12.045 fake[]A; fake[]B$\TU/SimSun(2)/m/n/12.045 ，|  掩 码
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 60--61
+[] []$\OML/cmm/m/it/12.045 loss[]S\OT1/cmr/m/n/12.045 + = \OML/cmm/m/it/12.045 ^^U[] \OMS/cmsy/m/n/12.045 ^^A L[]\OT1/cmr/m/n/12.045 (\OML/cmm/m/it/12.045 logits[]fA; mask[]B\OT1/cmr/m/n/12.045 ) + \OML/cmm/m/it/12.045 ^^U[] \OMS/cmsy/m/n/12.045 ^^A
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 84--85
+[] []$\OML/cmm/m/it/12.045 loss[]segG \OT1/cmr/m/n/12.045 = \OMS/cmsy/m/n/12.045 L[]\OT1/cmr/m/n/12.045 (\OML/cmm/m/it/12.045 logits[]fake[]A; mask[]B\OT1/cmr/m/n/12.045 ) +
+ []
+
+
+
+[43]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[44]
+
+[45]
+File: images/chap4/数据样例.png Graphic file (type bmp)
+<images/chap4/数据样例.png>
+
+
+[46]) (./contents/chap5-系统.tex
+
+[47]
+\bfseries 5
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[48
+
+]
+File: images/chap5/自动化原子位置识别与处理模块.png Graphic file (type bmp)
+<images/chap5/自动化原子位置识别与处理模块.png>
+
+
+[49]
+File: images/chap5/原子细粒度信息动态提取模块.png Graphic file (type bmp)
+<images/chap5/原子细粒度信息动态提取模块.png>
+
+
+[50])
+
+[51] (./contents/bib.tex
+
+[52
+
+
+] (./contents/bibitems_generated.tex
+Underfull \hbox (badness 2042) in paragraph at lines 26--27
+[]\TU/TimesNewRoman(0)/m/n/12.045 LECUN Y, BENGIO Y, HINTON G. Deep learning[J]. Nature, 2015,
+ []
+
+
+
+[53
+
+]
+
+[54]
+Underfull \hbox (badness 1394) in paragraph at lines 68--69
+\TU/TimesNewRoman(0)/m/n/12.045 DeblurGAN: Blind motion deblurring using conditional adversarial net-
+ []
+
+
+
+[55]
+Underfull \hbox (badness 1199) in paragraph at lines 92--93
+[]\TU/TimesNewRoman(0)/m/n/12.045 GALINDO P L, KRET S, SANCHEZ A M, LAVAL J Y, YANEZ A,
+ []
+
+
+
+[56]
+
+[57]
+
+[58]
+
+[59]))
+
+[60] (./contents/appendix.tex
+附录 A
+
+Overfull \hbox (2.00749pt too wide) in paragraph at lines 38--51
+  [] 
+ []
+
+
+Overfull \hbox (2.0014pt too wide) in paragraph at lines 56--76
+  [] 
+ []
+
+)
+
+[61
+
+
+]
+
+[62] (./contents/thanks.tex)
+
+[63
+
+
+] (./contents/mresume.tex
+Overfull \hbox (2.0075pt too wide) in paragraph at lines 8--17
+ [] 
+ []
+
+
+Underfull \vbox (badness 2073) has occurred while \output is active []
+
+
+
+[64
+
+
+])
+
+[65]
+
+[66
+
+
+]
+
+[67
+
+
+] (./contents/dataset.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 3--115
+
+ []
+
+
+
+[68
+
+
+] (out-build/main.aux)
+ ***********
+LaTeX2e <2024-11-01> patch level 2
+L3 programming layer <2022/08/05>
+ ***********
+
+
+LaTeX Font Warning: Some font shapes were not available, defaults substituted.
+
+Package rerunfilecheck Info: File `main.out' has not changed.
+(rerunfilecheck)             Checksum: 83B4EB05E02EEE7006017AEE43227350;7871.
+ ) 
+Here is how much of TeX's memory you used:
+ 23727 strings out of 473832
+ 505666 string characters out of 5733159
+ 956733 words of memory out of 5000000
+ 46324 multiletter control sequences out of 15000+600000
+ 575126 words of font info for 157 fonts, out of 8000000 for 9000
+ 1348 hyphenation exceptions out of 8191
+ 107i,20n,125p,1237b,619s stack positions out of 10000i,1000n,20000p,200000b,200000s
+
+Output written on out-build/main.pdf (78 pages).
