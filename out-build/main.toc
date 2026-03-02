@@ -18,9 +18,9 @@
 \contentsline {subsection}{\numberline {2.2.3}基于深度学习的原子定位方法}{14}{subsection.2.2.3}%
 \contentsline {section}{\numberline {2.3}本章小结}{17}{section.2.3}%
 \contentsline {chapter}{\numberline {\bfseries 3\hspace {.3em}}基于结构保持的非配对HRTEM图像质量提升}{19}{chapter.3}%
-\contentsline {section}{\numberline {3.1}非配对HRTEM图像质量提升}{20}{section.3.1}%
+\contentsline {section}{\numberline {3.1}非配对HRTEM图像质量提升}{19}{section.3.1}%
 \contentsline {section}{\numberline {3.2}基于结构保持的改进循环式生成网络}{21}{section.3.2}%
-\contentsline {subsection}{\numberline {3.2.1}空间频域联合特征提取的生成网络设计}{22}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.1}空间频域联合特征提取的生成网络设计}{21}{subsection.3.2.1}%
 \contentsline {subsection}{\numberline {3.2.2}基于自注意力机制的全局原子结构一致性建模}{24}{subsection.3.2.2}%
 \contentsline {subsection}{\numberline {3.2.3}基于特征函数与频域一致性的结构保持约束设计}{25}{subsection.3.2.3}%
 \contentsline {section}{\numberline {3.3}算法性能验证与实验结果分析}{27}{section.3.3}%
@@ -49,10 +49,10 @@
 \contentsline {subsection}{\numberline {5.3.2}自动化原子位置识别与处理模块实现}{53}{subsection.5.3.2}%
 \contentsline {subsection}{\numberline {5.3.3}原子细粒度信息动态提取模块实现}{56}{subsection.5.3.3}%
 \contentsline {section}{\numberline {5.4}本章小结}{58}{section.5.4}%
-\contentsline {chapter}{参考文献}{60}{chapter*.42}%
-\contentsline {chapter}{致谢}{69}{chapter*.44}%
-\contentsline {chapter}{作者简历及在学研究成果}{70}{chapter*.45}%
-\contentsline {chapter}{独创性说明}{72}{chapter*.46}%
-\contentsline {chapter}{关于论文使用授权的说明}{73}{chapter*.47}%
-\contentsline {chapter}{学位论文数据集}{74}{chapter*.48}%
+\contentsline {chapter}{参考文献}{60}{section*.41}%
+\contentsline {chapter}{致谢}{68}{chapter*.43}%
+\contentsline {chapter}{作者简历及在学研究成果}{69}{chapter*.44}%
+\contentsline {chapter}{独创性说明}{71}{chapter*.45}%
+\contentsline {chapter}{关于论文使用授权的说明}{72}{chapter*.46}%
+\contentsline {chapter}{学位论文数据集}{73}{chapter*.47}%
 \contentsfinish 

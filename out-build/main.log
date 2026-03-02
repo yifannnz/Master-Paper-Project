@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2026.2.1)  28 FEB 2026 23:28
+This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2026.2.1)  2 MAR 2026 22:57
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1168,29 +1168,31 @@ File: images/chap2/AP-GAN.png Graphic file (type bmp)
 
 [18]
 \bfseries 3
+File: images/chap3/流程图.png Graphic file (type bmp)
+<images/chap3/流程图.png>
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \vbox (badness 1092) has occurred while \output is active []
 
 
 
 [19
 
 ]
-File: images/chap3/流程图.png Graphic file (type bmp)
-<images/chap3/流程图.png>
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
 
 
 [20]
 File: images/chap3/方法图.png Graphic file (type bmp)
 <images/chap3/方法图.png>
 
-Underfull \vbox (badness 4316) has occurred while \output is active []
-
-
 
 [21]
 
 [22]
+Underfull \vbox (badness 1394) has occurred while \output is active []
+
+
 
 [23]
 Underfull \vbox (badness 7030) has occurred while \output is active []
@@ -1204,11 +1206,16 @@ Underfull \vbox (badness 7030) has occurred while \output is active []
 [26]
 File: images/chap3/数据集.png Graphic file (type bmp)
 <images/chap3/数据集.png>
+File: images/chap3/标注.png Graphic file (type bmp)
+<images/chap3/标注.png>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
 
 
 [27]
-File: images/chap3/标注.png Graphic file (type bmp)
-<images/chap3/标注.png>
+Underfull \vbox (badness 3375) has occurred while \output is active []
+
 
 
 [28]
@@ -1229,9 +1236,6 @@ File: images/chap3/结果图1.png Graphic file (type bmp)
 File: images/chap3/结果图2.png Graphic file (type bmp)
 <images/chap3/结果图2.png>
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
 
 [33]
 File: images/chap3/结果图3.png Graphic file (type bmp)
@@ -1244,9 +1248,6 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 [34]
 File: images/chap3/结果图4.png Graphic file (type bmp)
 <images/chap3/结果图4.png>
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
 
 
 [35]
@@ -1398,47 +1399,43 @@ File: images/chap5/轨迹信息.png Graphic file (type bmp)
 
 [58]
 
-[59] (./contents/bib.tex
-
-[60
-
-
-] (./contents/bibitems_generated.tex
+[59] (./contents/bib.tex (./contents/bibitems_generated.tex
 Underfull \hbox (badness 2042) in paragraph at lines 26--27
 []\TU/TimesNewRoman(0)/m/n/12.045 LECUN Y, BENGIO Y, HINTON G. Deep learning[J]. Nature, 2015,
  []
 
 
 
-[61
+[60
+
 
 ]
 
-[62]
+[61]
 Underfull \hbox (badness 1394) in paragraph at lines 68--69
 \TU/TimesNewRoman(0)/m/n/12.045 DeblurGAN: Blind motion deblurring using conditional adversarial net-
  []
 
 
 
-[63]
+[62]
 Underfull \hbox (badness 1199) in paragraph at lines 92--93
 []\TU/TimesNewRoman(0)/m/n/12.045 GALINDO P L, KRET S, SANCHEZ A M, LAVAL J Y, YANEZ A,
  []
 
 
 
+[63]
+
 [64]
 
 [65]
 
-[66]
+[66]))
 
-[67]))
+[67] (./contents/appendix.tex) (./contents/thanks.tex)
 
-[68] (./contents/appendix.tex) (./contents/thanks.tex)
-
-[69
+[68
 
 
 
@@ -1452,19 +1449,19 @@ Underfull \vbox (badness 2073) has occurred while \output is active []
 
 
 
-[70
+[69
 
 
 ])
 
-[71]
+[70]
 
-[72
+[71
 
 
 ]
 
-[73
+[72
 
 
 ] (./contents/dataset.tex)
@@ -1474,7 +1471,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 3--115
 
 
 
-[74
+[73
 
 
 ] (out-build/main.aux)
@@ -1487,7 +1484,7 @@ L3 programming layer <2022/08/05>
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: F54161B8F76C44E99271C6C40F677704;7805.
+(rerunfilecheck)             Checksum: A416763D7AD8A8D2382D5B9FB97273A2;7805.
  ) 
 Here is how much of TeX's memory you used:
  23798 strings out of 473832
@@ -1496,6 +1493,6 @@ Here is how much of TeX's memory you used:
  46385 multiletter control sequences out of 15000+600000
  575126 words of font info for 157 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 107i,20n,125p,1237b,619s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 107i,20n,125p,1237b,617s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on out-build/main.pdf (84 pages).
+Output written on out-build/main.pdf (83 pages).
