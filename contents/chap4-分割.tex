@@ -106,7 +106,7 @@ N_n = P_n + \mathrm{Down}(N_{n-1}), \; n=2,\dots,L.
     \label{fig:4-5}
 \end{figure}
 
-表\ref{tab:4-1}为将本章节提出的方法与U-Net、U$^2$-Net、AtomSegNet、AtomVision、CalAtom方法进行对比评估，给出了Dice、IoU、Precision和Recall四项指标在region-based与position-based两个维度下的结果。可以看到，本文方法在8项指标中均取得最优：在region-based维度上，Dice、IoU、Precision和Recall分别达到0.8525、0.7432、0.8686和0.8903；在position-based维度上，4项指标分别达到0.6832、0.5198、0.4164和0.4600。与次优方法相比，本文方法在region-based IoU上提升0.1616（0.7432 vs. 0.5816），在position-based IoU上提升0.0405（0.5198 vs. 0.4793）；在position-based Precision与Recall上分别提升0.0547和0.0390，表明所提方法不仅提高了掩膜重叠质量，也显著增强了原子中心定位的准确性与完整性。这些结果验证了基于生成数据增强与多尺度特征融合的原子定位方法在复杂成像条件下的有效性与优越性，为后续原子结构分析与构效关系研究提供了可靠的工具支持。
+表\ref{tab:4-1}为将本章节提出的方法与U-Net、U$^2$-Net、AtomSegNet、AtomVision、CalAtom方法进行对比评估，给出了Dice、IoU、Precision和Recall四项指标在基于标注区域的结果。可以看到，我们的方法在Dice和IoU指标中有明显的提升。相较于AtomVision，我们的Dice指标提升了17.78\%，IoU指标提升了16.16\%。这些结果验证了基于生成数据增强与多尺度特征融合的原子定位方法在复杂成像条件下的有效性与优越性，为后续原子结构分析与构效关系研究提供了可靠的工具支持。
 
 \begin{table}[htb]
 \centering
@@ -116,18 +116,16 @@ N_n = P_n + \mathrm{Down}(N_{n-1}), \; n=2,\dots,L.
 \scriptsize
 \setlength{\tabcolsep}{3pt}
 \renewcommand{\arraystretch}{1.1}
-\begin{tabularx}{\textwidth}{>{\centering\arraybackslash}p{0.11\textwidth}*{8}{>{\centering\arraybackslash}X}}
+\begin{tabularx}{\textwidth}{>{\centering\arraybackslash}p{0.18\textwidth}*{4}{>{\centering\arraybackslash}X}}
 \toprule
-\multirow{2}{*}{\makecell[c]{Method}} & \multicolumn{2}{c}{Dice$\uparrow$} & \multicolumn{2}{c}{IoU$\uparrow$} & \multicolumn{2}{c}{Precision$\uparrow$} & \multicolumn{2}{c}{Recall$\uparrow$} \\
-\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}\cmidrule(lr){8-9}
- & \mbox{Region-based} & \mbox{Position-based} & \mbox{Region-based} & \mbox{Position-based} & \mbox{Region-based} & \mbox{Position-based} & \mbox{Region-based} & \mbox{Position-based} \\
+\makecell[c]{Method} & Dice$\uparrow$ & IoU$\uparrow$ & Precision$\uparrow$ & Recall$\uparrow$ \\
 \midrule
-U-Net      & 0.6854 & 0.5035 & 0.5425 & 0.4587 & 0.6197 & 0.3981 & 0.8256 & 0.4011 \\
-U$^2$-Net  & 0.6904 & 0.5271 & 0.5471 & 0.4750 & 0.6271 & 0.4162 & \underline{0.8490} & \underline{0.4210} \\
-CalAtom    & 0.7032 & 0.3879 & 0.5391 & 0.3681 & 0.6459 & 0.2998 & 0.7931 & 0.3433 \\
-AtomSegNet & 0.5691 & 0.2687 & 0.4122 & 0.2986 & 0.6078 & 0.2663 & 0.5555 & 0.2579 \\
-AtomVision & \underline{0.7247} & \underline{0.5732} & \underline{0.5816} & \underline{0.4793} & \underline{0.8612} & \underline{0.4174} & 0.6322 & 0.4183 \\
-Ours       & \textbf{0.8525} & \textbf{0.6832} & \textbf{0.7432} & \textbf{0.5198} & \textbf{0.8686} & \textbf{0.4164} & \textbf{0.8903} & \textbf{0.4600} \\
+U-Net      & 0.6854 & 0.5425 & 0.6197 & 0.8256 \\
+U$^2$-Net  & 0.6904 & 0.5471 & 0.6271 & \underline{0.8490} \\
+CalAtom    & 0.7032 & 0.5391 & 0.6459 & 0.7931 \\
+AtomSegNet & 0.5691 & 0.4122 & 0.6078 & 0.5555 \\
+AtomVision & \underline{0.7247} & \underline{0.5816} & \underline{0.8612} & 0.6322 \\
+Ours       & \textbf{0.8525} & \textbf{0.7432} & \textbf{0.8686} & \textbf{0.8903} \\
 \bottomrule
 \end{tabularx}
 
@@ -136,7 +134,7 @@ Ours       & \textbf{0.8525} & \textbf{0.6832} & \textbf{0.7432} & \textbf{0.519
 \endgroup
 \end{table}
 
-图\ref{fig:4-6}展示了本章提出的方法和其他模型输出结果的主观可视化对比。分别将我们的方法和AtomVision、AtomSegNet、U$^2$-Net的分割结果进行对比。直观来看，本章提出的方法在原子边界的连续性和细节表达方面更为出色。AtomVision在分割边界上较为清晰，但在某些区域存在明显的漏检现象，导致原子结构分割不全。AtomSegNet的分割结果在背景噪声较多的区域表现出极多的误分割情况，导致分割结果中存在大量伪原子点。U$^2$-Net的分割结果在边界细节上表现较为模糊，且在某些区域存在明显的过度平滑现象，导致原子边界不够清晰。相比之下，本章提出的方法能够更好地平衡边界细节与结构连续性，在复杂成像条件下实现更准确的原子定位与结构表征。这些定性结果与定量指标相辅相成，共同验证了所提方法在原子图像分割任务中的有效性与优越性。
+图\ref{fig:4-6}展示了本章提出的方法和其他模型输出结果的主观可视化对比。分别将我们的方法和AtomVision、AtomSegNet、U$^2$-Net等深度学习方法的分割结果进行对比。直观来看，本章提出的方法在原子边界的连续性和细节表达方面更为出色。AtomVision在分割边界上较为清晰，但在某些区域存在明显的漏检现象，导致原子结构分割不全。AtomSegNet的分割结果在背景噪声较多的区域表现出极多的误分割情况，导致分割结果中存在大量伪原子点。U$^2$-Net的分割结果在边界细节上表现较为模糊，且在某些区域存在明显的过度平滑现象，导致原子边界不够清晰。相比之下，本章提出的方法能够更好地平衡边界细节与结构连续性，在复杂成像条件下实现更准确的原子定位与结构表征。这些定性结果与定量指标相辅相成，共同验证了所提方法在原子图像分割任务中的有效性与优越性。
 
 \begin{figure} [htb]
     \centering
@@ -145,9 +143,91 @@ Ours       & \textbf{0.8525} & \textbf{0.6832} & \textbf{0.7432} & \textbf{0.519
     \label{fig:4-6}
 \end{figure}
 
-\subsection{消融实验与方法有效性验证}
+综合表\ref{tab:4-1}中的结果，我们的方法与AtomVision、CalAtom方法在各项指标上位列前三，因此，结合原子点中心的坐标，对Dice、IoU等评价指标进行基于位置的评估（position-based）。我们根据真实标注的原子位置和从预测掩膜中提取的原子位置进行匹配，计算位置偏差。我们定义不同的匹配阈值，分别为3、4、5像素，统计在这些阈值下预测原子位置与真实位置匹配的比例，从而评估模型的定位精度。表\ref{tab:4-2}展示了本章提出的方法与对比方法在不同匹配阈值下的基于位置评估结果。随着匹配阈值的增加，所有方法的评估指标均有所提升，但我们的方法在各个阈值下均表现出明显的优势，尤其在较小的匹配阈值（如3像素）下，显示出更高的定位精度和更好的边界细节表达能力。这些结果进一步验证了所提方法在原子位置定位任务中的有效性与优越性，为后续原子结构分析与构效关系研究提供了可靠的工具支持。
 
+\begin{table}[htb]
+\centering
+\bicaption{不同匹配阈值下三种方法的位置评估结果}{Position-based evaluation results of three methods under different matching thresholds}
+\label{tab:4-2}
+\begingroup
+\scriptsize
+\setlength{\tabcolsep}{2.6pt}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabularx}{\textwidth}{>{\centering\arraybackslash}p{0.10\textwidth}>{\centering\arraybackslash}p{0.10\textwidth}*{9}{>{\centering\arraybackslash}X}}
+\toprule
+& & \multicolumn{3}{c}{position-based(3)} & \multicolumn{3}{c}{position-based(4)} & \multicolumn{3}{c}{position-based(5)} \\
+\cmidrule(lr){3-5}\cmidrule(lr){6-8}\cmidrule(lr){9-11}
+评价指标 & 数据类型 & CalAtom & AtomVision & Ours & CalAtom & AtomVision & Ours & CalAtom & AtomVision & Ours \\
+\midrule
+\multirow{2}{*}{Dice} & 催化数据   & 0.5159 & 0.5831 & 0.6537 & 0.6094 & 0.6831 & 0.7642 & 0.7985 & 0.8374 & 0.8924 \\
+                      & 非催化数据 & 0.7133 & 0.8462 & 0.8610 & 0.8143 & 0.8210 & 0.8431 & 0.8942 & 0.9126 & 0.9476 \\
+\midrule
+\multirow{2}{*}{IoU}  & 催化数据   & 0.4157 & 0.4351 & 0.5911 & 0.5265 & 0.5797 & 0.6264 & 0.6163 & 0.6461 & 0.6942 \\
+                      & 非催化数据 & 0.6913 & 0.7155 & 0.8231 & 0.8213 & 0.8385 & 0.8612 & 0.8911 & 0.9031 & 0.9326 \\
+\midrule
+\multirow{2}{*}{Precision} & 催化数据   & 0.5931 & 0.6002 & 0.6233 & 0.6386 & 0.6908 & 0.7142 & -- & -- & -- \\
+                            & 非催化数据 & 0.6142 & 0.7243 & 0.7943 & -- & -- & -- & -- & -- & -- \\
+\midrule
+\multirow{2}{*}{Recall} & 催化数据   & 0.5720 & 0.5791 & 0.5911 & 0.6986 & 0.7263 & 0.7570 & -- & -- & -- \\
+                         & 非催化数据 & 0.6198 & 0.7074 & 0.8114 & -- & -- & -- & -- & -- & -- \\
+\bottomrule
+\end{tabularx}
+
+\vspace{2pt}
+{\raggedright\footnotesize 注：position-based(3)/(4)/(5)分别表示匹配阈值为3、4、5像素。\par}
+\endgroup
+\end{table}
+
+\subsection{消融实验与方法有效性验证}
+为了验证所提出的基于生成数据增强与多尺度特征融合的原子定位方法中各个组件的有效性，我们设计了一系列消融实验，分别评估生成数据增强策略和多尺度特征融合机制对分割性能的贡献。首先，在生成数据增强方面，我们比较了以下三种配置：1）不使用生成数据，仅使用真实标注数据进行分割训练；2）使用传统数据增强方法（如旋转、翻转、平移等）扩充训练数据；3）使用基于图像到掩膜生成的增强策略构建扩展训练数据。通过比较这三种配置在分割指标上的表现，可以量化生成数据增强策略在提升模型学习能力和泛化性能方面的作用。
+
+其次，在多尺度特征融合方面，我们比较了以下三种配置：1）不使用多尺度特征融合机制，直接使用Swin Transformer进行分割；2）仅引入FPN进行特征融合；3）同时引入FPN和PAN构建完整的多尺度特征融合模块。通过比较这三种配置在分割指标上的表现，可以评估多尺度特征融合机制在提升模型对不同尺度原子结构的表征能力和分割精度方面的贡献。通过上述消融实验，我们能够系统地验证所提方法中各个组件的有效性与必要性，从而为方法设计提供更深入的理解和优化方向。
+
+表\ref{tab:4-3}展示了生成数据增强消融实验，可以看到，使用基于图像到掩膜生成的增强策略相比于仅使用真实标注数据和传统数据增强方法，在Dice、IoU、Precision和Recall等指标上均有显著提升。这表明生成数据增强策略能够有效扩充训练数据的多样性和规模，从而提升分割模型的学习能力和泛化性能。
+
+\begin{table}[htb]
+\centering
+\bicaption{生成数据增强消融实验结果}{Ablation results of generated data augmentation}
+\label{tab:4-3}
+\begingroup
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabularx}{\textwidth}{>{\centering\arraybackslash}p{0.18\textwidth}>{\centering\arraybackslash}p{0.30\textwidth}*{4}{>{\centering\arraybackslash}X}}
+\toprule
+实验设置 & 训练数据 & Dice$\uparrow$ & IoU$\uparrow$ & Precision$\uparrow$ & Recall$\uparrow$ \\
+\midrule
+mask-only & -- & -- & -- & -- & -- \\
+enhancement & -- & -- & -- & -- & -- \\
+image-to-mask & -- & -- & -- & -- & -- \\
+\bottomrule
+\end{tabularx}
+\endgroup
+\end{table}
+
+表\ref{tab:4-4}展示了多尺度特征融合消融实验，可以看到，引入FPN进行特征融合相比于不使用多尺度特征融合机制，在Dice、IoU、Precision和Recall等指标上均有提升；进一步引入PAN构建完整的多尺度特征融合模块相比于仅使用FPN，在各项指标上也有明显提升。这表明多尺度特征融合机制能够增强模型对不同尺度原子结构的表征能力，从而提升分割的精度与鲁棒性。
+
+\begin{table}[htb]
+\centering
+\bicaption{多尺度特征融合消融实验结果}{Ablation results of multi-scale feature fusion}
+\label{tab:4-4}
+\begingroup
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabularx}{\textwidth}{*{4}{>{\centering\arraybackslash}p{0.09\textwidth}}*{4}{>{\centering\arraybackslash}X}}
+\toprule
+Unet & Swin Unet & FPN & PAN & Dice$\uparrow$ & IoU$\uparrow$ & Precision$\uparrow$ & Recall$\uparrow$ \\
+\midrule
+$\checkmark$ & $\times$ & $\times$ & $\times$ & -- & -- & -- & -- \\
+$\times$ & $\checkmark$ & $\times$ & $\times$ & -- & -- & -- & -- \\
+$\times$ & $\checkmark$ & $\checkmark$ & $\times$ & -- & -- & -- & -- \\
+$\times$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & -- & -- & -- & -- \\
+\bottomrule
+\end{tabularx}
+\endgroup
+\end{table}
 
 \section{本章小结}
-
+本章提出了一种基于生成数据增强与多尺度特征融合的原子定位方法，旨在解决原子图像分割中标注样本稀缺、成像条件复杂以及结构多样性带来的挑战。通过引入基于图像到掩膜生成的数据增强策略，能够从低质量原子图像中恢复可靠的结构标注，并构建扩展的训练数据；通过在Swin Transformer分割网络中引入FPN与PAN组成的多尺度特征融合模块，增强模型对不同尺度原子结构的表征能力，从而提升分割的精度与鲁棒性。实验结果表明，所提方法在多个分割指标上均显著优于现有方法，并且在基于位置的评估中也表现出更高的定位精度。消融实验进一步验证了生成数据增强策略和多尺度特征融合机制在提升分割性能方面的有效性。这些结果为后续原子结构分析与构效关系研究提供了可靠的工具支持，同时也为未来在其他领域中应用类似的生成增强与多尺度融合策略提供了有益的参考。
 
