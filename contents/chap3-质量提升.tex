@@ -203,38 +203,6 @@ G_L(x) - x
 
 通过在瓶颈特征层面联合引入频域幅度一致性与特征函数幅相对齐机制，模型能够在增强图像视觉质量的同时维持原子尺度结构的统计一致性与几何稳定性，从而有效降低结构失真风险，提高生成结果的物理可信度。
 
-综合对抗损失、循环一致性损失以及上述结构保持约束，本文最终优化目标函数可表示为：
-
-\begin{equation}
-\mathcal{L}_{\mathrm{total}} =
-\mathcal{L}_{\mathrm{base}}
-+
-\lambda_{\mathrm{CF}} \mathcal{L}_{\mathrm{CF}}
-+
-\lambda_{\mathrm{FFT}} \mathcal{L}_{\mathrm{FFT}},
-\end{equation}
-
-其中 $\lambda_{\mathrm{CF}}$ 与 $\lambda_{\mathrm{FFT}}$ 分别为特征函数约束与频域一致性约束的权重系数，用于平衡不同约束项在整体优化目标中的贡献。
-
-通过在瓶颈特征层面联合引入频域幅度一致性与特征函数幅相对齐机制，模型能够在增强图像视觉质量的同时维持原子尺度结构的统计一致性与几何稳定性，从而有效降低结构失真风险，提高生成结果的物理可信度。
-
-
-
-综合对抗损失、循环一致性损失以及上述结构保持约束，HRTEM-GAN最终优化目标函数可表示为：
-
-\begin{equation}
-\mathcal{L}_{\mathrm{total}} =
-\mathcal{L}_{\mathrm{base}}
-+
-\lambda_{\mathrm{CF}} \mathcal{L}_{\mathrm{CF}}
-+
-\lambda_{\mathrm{FFT}} \mathcal{L}_{\mathrm{FFT}},
-\end{equation}
-
-其中 $\lambda_{\mathrm{CF}}$ 与 $\lambda_{\mathrm{FFT}}$ 分别为特征函数约束与频域一致性约束的权重系数，用于平衡不同约束项在整体优化目标中的贡献。
-
-通过在瓶颈特征层面联合引入频域幅度一致性与特征函数幅相对齐机制，模型能够在增强图像视觉质量的同时维持原子尺度结构的统计一致性与几何稳定性，从而有效降低结构失真风险，提高生成结果的物理可信度。
-
 \section{算法性能验证与实验结果分析}
 
 \subsection{实验数据来源及描述}
